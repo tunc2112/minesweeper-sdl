@@ -118,28 +118,10 @@ cd bai-tap-lon
 
 - `catch event window event of which window sdl` gg
 
+- https://wiki.libsdl.org/SDL_MouseButtonEvent
+
 ### other
 
 - https://gist.github.com/roxygen/dd266f4b96fdf33537eb
 
-- https://wiki.libsdl.org/SDL_MouseButtonEvent
-
 - https://en.cppreference.com/w/cpp/io/clog
-
-
-## Nothing
-
-```python
->>> def F(a, b, p, x):
-	res = 0
-	for n in range(1, x+1):
-		if (n * a**n) % p == b:
-			print(n)
-			res += 1
-	return res
-
->>> F(4, 6, 7, 13)
-6
-1
->>> F(4, 6, 7, 13)
-```
