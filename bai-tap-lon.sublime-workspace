@@ -1,0 +1,1558 @@
+{
+	"auto_complete":
+	{
+		"selected_items":
+		[
+			[
+				"tele",
+				"telex_pressed\tstatement"
+			],
+			[
+				"local",
+				"local_children"
+			],
+			[
+				"child",
+				"children"
+			],
+			[
+				"split",
+				"splitted"
+			],
+			[
+				"tags",
+				"tags_selector"
+			],
+			[
+				"tag",
+				"tags_parser"
+			],
+			[
+				"open",
+				"opening_tags"
+			],
+			[
+				"attr",
+				"attrib"
+			],
+			[
+				"oe",
+				"opening_tags"
+			],
+			[
+				"ne",
+				"new_school"
+			],
+			[
+				"entry",
+				"entry_var"
+			],
+			[
+				"vra",
+				"variable"
+			],
+			[
+				"su",
+				"submit_btn"
+			],
+			[
+				"check",
+				"checkboxes"
+			],
+			[
+				"column",
+				"columnspan\t(gui.py)"
+			],
+			[
+				"data",
+				"data_attrib\tstatement"
+			],
+			[
+				"root",
+				"root_height\tstatement"
+			],
+			[
+				"show",
+				"show_form"
+			],
+			[
+				"file",
+				"filename"
+			],
+			[
+				"nha",
+				"nhap_lieu.xlsx"
+			],
+			[
+				"justi",
+				"justify-items"
+			],
+			[
+				"align",
+				"align-self\tproperty"
+			],
+			[
+				"backr",
+				"background\tproperty"
+			],
+			[
+				"vi",
+				"visible\t(calculator.js)"
+			],
+			[
+				"fon",
+				"font-size\tproperty"
+			],
+			[
+				"back",
+				"background"
+			],
+			[
+				"calc_s",
+				"calc_shift_text"
+			],
+			[
+				"pad",
+				"padding-bottom\tproperty"
+			],
+			[
+				"impot",
+				"important"
+			],
+			[
+				"paddin",
+				"padding-bottom\tproperty"
+			],
+			[
+				"inlin",
+				"inline-block"
+			],
+			[
+				"current",
+				"currentColor\t(vinacal.html)"
+			],
+			[
+				"inl",
+				"inline-block"
+			],
+			[
+				"btn",
+				"btn_div"
+			],
+			[
+				"font-",
+				"font-style\tproperty"
+			],
+			[
+				"vis",
+				"visible"
+			],
+			[
+				"onkey",
+				"onkeypress\tAttr"
+			],
+			[
+				"calc",
+				"calc_input"
+			],
+			[
+				"wi",
+				"width\tproperty"
+			],
+			[
+				"con",
+				"console"
+			],
+			[
+				"Ar",
+				"ArgumentError"
+			],
+			[
+				"pre",
+				"press_btn"
+			],
+			[
+				"ins",
+				"insert_text"
+			],
+			[
+				"ori",
+				"original_natural_log"
+			],
+			[
+				"flex",
+				"flex-direction"
+			],
+			[
+				"inline",
+				"inline-block\t(vinacal.css)"
+			],
+			[
+				"pos",
+				"position\tproperty"
+			],
+			[
+				"docu",
+				"document.getElementById('calc_input"
+			],
+			[
+				"font",
+				"font-family\tproperty"
+			],
+			[
+				"alig",
+				"align-self\t(vinacal.html)"
+			],
+			[
+				"space",
+				"space-between"
+			],
+			[
+				"ali",
+				"align-items\tproperty"
+			],
+			[
+				"inner",
+				"innerHTML"
+			],
+			[
+				"print",
+				"print_result"
+			],
+			[
+				"add",
+				"add_text_to_input"
+			],
+			[
+				"cur",
+				"currentColor"
+			],
+			[
+				"text",
+				"text-align\tproperty"
+			],
+			[
+				"tex",
+				"text-align\tproperty"
+			],
+			[
+				"urll",
+				"urllib.request"
+			],
+			[
+				"max",
+				"max_selected"
+			],
+			[
+				"obj",
+				"objs"
+			],
+			[
+				"all",
+				"all_words"
+			],
+			[
+				"is",
+				"is_leap_year"
+			],
+			[
+				"type",
+				"type=〔attribute〕"
+			],
+			[
+				"if",
+				"ifmain\tif __name__ == '__main__'"
+			],
+			[
+				"cac",
+				"calc_btn_control\t(test.html)"
+			],
+			[
+				"calc_btn",
+				"calc_btn_img"
+			],
+			[
+				"grid",
+				"grid-column-start\tproperty"
+			],
+			[
+				"grid-row",
+				"grid-row-end\tproperty"
+			],
+			[
+				"grid-col",
+				"grid-column-end\tproperty"
+			],
+			[
+				"grid-column",
+				"grid-column-end\tproperty"
+			],
+			[
+				"gird",
+				"grid-column-start\tproperty"
+			],
+			[
+				"grid-te",
+				"grid-template-columns\tproperty"
+			],
+			[
+				"background",
+				"background-color\tproperty"
+			],
+			[
+				"flex-",
+				"flex-direction\tproperty"
+			],
+			[
+				"t",
+				"td\tTag"
+			],
+			[
+				"prce",
+				"price"
+			],
+			[
+				"right",
+				"right_color"
+			],
+			[
+				"next",
+				"next_y"
+			],
+			[
+				"nxt",
+				"next_x"
+			],
+			[
+				"next_",
+				"next_x"
+			],
+			[
+				"nex",
+				"next_y"
+			],
+			[
+				"input",
+				"input-group \tBootstrap 3 Class"
+			],
+			[
+				"trian",
+				"triangle_left\t(test.css)"
+			],
+			[
+				"math",
+				"math_input_pad\t(test.css)"
+			],
+			[
+				"k_",
+				"k_right"
+			],
+			[
+				"smaller",
+				"smaller_s\tstatement"
+			],
+			[
+				"small",
+				"smaller_s\tstatement"
+			],
+			[
+				"smaller_",
+				"smaller_s\tstatement"
+			],
+			[
+				"greatt",
+				"greater_than_6s"
+			],
+			[
+				"smaller_than",
+				"smaller_than_8s"
+			],
+			[
+				"text-",
+				"text-center \tBootstrap 3 Class"
+			],
+			[
+				"padd",
+				"padding"
+			],
+			[
+				"count",
+				"counted_chars"
+			],
+			[
+				"margin-",
+				"margin-top\t(try.html)"
+			],
+			[
+				"lst",
+				"list-group \tBootstrap 3 Class"
+			],
+			[
+				"select",
+				"selected_model"
+			],
+			[
+				"selec",
+				"selected_element"
+			],
+			[
+				"op",
+				"option\tTag"
+			],
+			[
+				"th",
+				"th\tTag"
+			],
+			[
+				"list-grou",
+				"list-group-item \tBootstrap 3 Class"
+			],
+			[
+				"search-as",
+				"search-as-btns"
+			],
+			[
+				"push",
+				"push_back\tfunc"
+			],
+			[
+				"br",
+				"browser_obj"
+			],
+			[
+				"web",
+				"webbrowser"
+			],
+			[
+				"open_new",
+				"open_new_tab\tfunction"
+			],
+			[
+				"d-e",
+				"D-E\tdefine"
+			],
+			[
+				"SH",
+				"Shinnyo"
+			],
+			[
+				"Shy",
+				"Shinnyo"
+			],
+			[
+				"fear",
+				"fear_messages"
+			],
+			[
+				"cast",
+				"cast_from_ll"
+			],
+			[
+				"popf",
+				"pop_front\tfunc"
+			],
+			[
+				"satis",
+				"satisfied"
+			],
+			[
+				"print_arr",
+				"print_array"
+			],
+			[
+				"idx",
+				"idx_of_satisfied"
+			],
+			[
+				"sta",
+				"satisfied"
+			],
+			[
+				"sa",
+				"satisfied"
+			],
+			[
+				"genera",
+				"generate_function_sumif"
+			],
+			[
+				"iter",
+				"iter_type"
+			],
+			[
+				"array",
+				"array_variance"
+			],
+			[
+				"func",
+				"func_type"
+			],
+			[
+				"generate",
+				"generate_function_evaluate"
+			],
+			[
+				"arr",
+				"args_iter_type"
+			],
+			[
+				"ar",
+				"array_iter_type"
+			],
+			[
+				"gene",
+				"generate_function_countif"
+			],
+			[
+				"gen",
+				"generate_function_countif"
+			],
+			[
+				"arra",
+				"array_size_var"
+			],
+			[
+				"login",
+				"login_page"
+			]
+		]
+	},
+	"buffers":
+	[
+	],
+	"build_system": "Packages/User/C++.sublime-build",
+	"build_system_choices":
+	[
+		[
+			[
+				[
+					"Packages/C++/C++ Single File.sublime-build",
+					""
+				],
+				[
+					"Packages/C++/C++ Single File.sublime-build",
+					"Run"
+				],
+				[
+					"Packages/C++11/C++11.sublime-build",
+					""
+				],
+				[
+					"Packages/C++11/C++11.sublime-build",
+					"Run"
+				]
+			],
+			[
+				"Packages/C++/C++ Single File.sublime-build",
+				""
+			]
+		],
+		[
+			[
+				[
+					"Packages/C++/C++ Single File.sublime-build",
+					""
+				],
+				[
+					"Packages/C++/C++ Single File.sublime-build",
+					"Run"
+				],
+				[
+					"Packages/C++11/C++11.sublime-build",
+					""
+				],
+				[
+					"Packages/C++11/C++11.sublime-build",
+					"Run"
+				],
+				[
+					"Packages/User/C++.sublime-build",
+					""
+				]
+			],
+			[
+				"Packages/User/C++.sublime-build",
+				""
+			]
+		],
+		[
+			[
+				[
+					"Packages/C++/C++ Single File.sublime-build",
+					""
+				],
+				[
+					"Packages/C++/C++ Single File.sublime-build",
+					"Run"
+				],
+				[
+					"Packages/C++11/C++11.sublime-build",
+					""
+				],
+				[
+					"Packages/C++11/C++11.sublime-build",
+					"Run"
+				],
+				[
+					"Packages/User/C++.sublime-build",
+					""
+				],
+				[
+					"Packages/User/C++.sublime-build",
+					"Build & Run"
+				]
+			],
+			[
+				"Packages/User/C++.sublime-build",
+				""
+			]
+		],
+		[
+			[
+				[
+					"Packages/C++/C++ Single File.sublime-build",
+					""
+				],
+				[
+					"Packages/C++/C++ Single File.sublime-build",
+					"Run"
+				],
+				[
+					"Packages/C++11/C++11.sublime-build",
+					""
+				],
+				[
+					"Packages/C++11/C++11.sublime-build",
+					"Run"
+				],
+				[
+					"Packages/User/C++.sublime-build",
+					""
+				],
+				[
+					"Packages/User/C++.sublime-build",
+					"Run"
+				]
+			],
+			[
+				"Packages/User/C++.sublime-build",
+				""
+			]
+		],
+		[
+			[
+				[
+					"Packages/C++/C++ Single File.sublime-build",
+					""
+				],
+				[
+					"Packages/C++/C++ Single File.sublime-build",
+					"Run"
+				],
+				[
+					"Packages/C++11/C++11.sublime-build",
+					""
+				],
+				[
+					"Packages/C++11/C++11.sublime-build",
+					"Run"
+				],
+				[
+					"Packages/User/c++.sublime-build",
+					""
+				],
+				[
+					"Packages/User/c++.sublime-build",
+					"Run"
+				]
+			],
+			[
+				"Packages/User/c++.sublime-build",
+				"Run"
+			]
+		],
+		[
+			[
+				[
+					"Packages/Python/Python.sublime-build",
+					""
+				],
+				[
+					"Packages/Python/Python.sublime-build",
+					"Syntax Check"
+				]
+			],
+			[
+				"Packages/Python/Python.sublime-build",
+				""
+			]
+		],
+		[
+			[
+				[
+					"Packages/Python/Python.sublime-build",
+					""
+				],
+				[
+					"Packages/Python/Python.sublime-build",
+					"Syntax Check"
+				],
+				[
+					"Packages/Python 3/Python3.sublime-build",
+					""
+				]
+			],
+			[
+				"Packages/Python 3/Python3.sublime-build",
+				""
+			]
+		]
+	],
+	"build_varint": "",
+	"command_palette":
+	{
+		"height": 354.0,
+		"last_filter": "",
+		"selected_items":
+		[
+			[
+				"",
+				"Build: New Build System"
+			],
+			[
+				"upper",
+				"Convert Case: Upper Case"
+			],
+			[
+				"s",
+				"Sort Lines"
+			],
+			[
+				"sor",
+				"Sort Lines"
+			],
+			[
+				"sort",
+				"Sort Lines"
+			],
+			[
+				"lowr",
+				"Convert Case: Lower Case"
+			],
+			[
+				"install",
+				"Package Control: Install Package"
+			],
+			[
+				"material",
+				"Material Theme: Advanced configuration"
+			],
+			[
+				"reinstal",
+				"Package Control: Advanced Install Package"
+			],
+			[
+				"theme",
+				"UI: Select Theme"
+			],
+			[
+				"the",
+				"UI: Select Theme"
+			],
+			[
+				"python",
+				"Set Syntax: Python"
+			],
+			[
+				"lower",
+				"Convert Case: Lower Case"
+			],
+			[
+				"inst",
+				"Package Control: Install Package"
+			],
+			[
+				"upp",
+				"Convert Case: Upper Case"
+			],
+			[
+				"tab",
+				"View: Toggle Tabs"
+			],
+			[
+				"c++",
+				"Set Syntax: C++"
+			],
+			[
+				"syntax",
+				"Set Syntax: C++"
+			],
+			[
+				"set",
+				"Set Syntax: C++"
+			],
+			[
+				"setc++",
+				"Set Syntax: C++11"
+			],
+			[
+				"set c++",
+				"Set Syntax: C++"
+			],
+			[
+				"html",
+				"HTMLBeautify"
+			],
+			[
+				"set py",
+				"Set Syntax: Python3"
+			],
+			[
+				"python3",
+				"Set Syntax: Python3"
+			],
+			[
+				"build",
+				"Build With: C++"
+			],
+			[
+				"pytho",
+				"Set Syntax: Python"
+			],
+			[
+				"wrap",
+				"Word Wrap: Toggle"
+			],
+			[
+				"pack",
+				"Package Control: List Packages"
+			],
+			[
+				"instal",
+				"Package Control: Install Package"
+			],
+			[
+				"css",
+				"Set Syntax: CSS3"
+			],
+			[
+				"h",
+				"Set Syntax: HTML"
+			],
+			[
+				"mat",
+				"Material Theme: Extras"
+			],
+			[
+				"remove",
+				"Package Control: Remove Package"
+			],
+			[
+				"upd",
+				"Package Control: Upgrade Package"
+			],
+			[
+				"mark",
+				"Set Syntax: Markdown"
+			],
+			[
+				"sorted",
+				"SublimeCodeIntel: Dump Import Directories"
+			],
+			[
+				"sorte",
+				"Sort Lines"
+			],
+			[
+				"space",
+				"Indentation: Convert to Spaces"
+			],
+			[
+				"cpp",
+				"Package Control: Upgrade Package"
+			],
+			[
+				"beauti",
+				"HTMLBeautify"
+			],
+			[
+				"beau",
+				"HTMLBeautify"
+			],
+			[
+				"low",
+				"Convert Case: Lower Case"
+			],
+			[
+				"pyth",
+				"Set Syntax: Python"
+			],
+			[
+				"ins",
+				"Package Control: Install Package"
+			],
+			[
+				"javasc",
+				"Set Syntax: JavaScript"
+			],
+			[
+				"tex",
+				"Set Syntax: TeX"
+			],
+			[
+				"rever",
+				"Permute Lines: Reverse"
+			],
+			[
+				"mul",
+				"Set Syntax: MultiMarkdown"
+			],
+			[
+				"pas",
+				"Set Syntax: Pascal"
+			],
+			[
+				"so",
+				"Sort Lines"
+			],
+			[
+				"pla",
+				"Set Syntax: Plain Text"
+			],
+			[
+				"line",
+				"Indentation: Reindent Lines"
+			],
+			[
+				"mar",
+				"Set Syntax: Markdown"
+			],
+			[
+				"ruby",
+				"Set Syntax: Ruby"
+			],
+			[
+				"l",
+				"Convert Case: Lower Case"
+			],
+			[
+				"lo",
+				"Convert Case: Lower Case"
+			],
+			[
+				"xml",
+				"Indent XML"
+			],
+			[
+				"char",
+				"HTML: Encode Special Characters"
+			],
+			[
+				"clang",
+				"Clang Format: Select Style"
+			],
+			[
+				"insta",
+				"Package Control: Install Package"
+			],
+			[
+				"bash",
+				"Set Syntax: Shell Script (Bash)"
+			],
+			[
+				"lowre",
+				"Convert Case: Lower Case"
+			],
+			[
+				"indent",
+				"Indentation: Reindent Lines"
+			],
+			[
+				"pyt",
+				"Set Syntax: Python"
+			],
+			[
+				"wr",
+				"Word Wrap: Toggle"
+			],
+			[
+				"package",
+				"Package Control: List Packages"
+			],
+			[
+				"LOWER",
+				"Convert Case: Lower Case"
+			],
+			[
+				"select",
+				"Bookmarks: Select All"
+			],
+			[
+				"github",
+				"GitHub Flavored Markdown: Preview"
+			],
+			[
+				"gt",
+				"GitHub Flavored Markdown: Preview"
+			],
+			[
+				"u",
+				"Convert Case: Upper Case"
+			],
+			[
+				"pascal",
+				"Set Syntax: Pascal"
+			],
+			[
+				"in",
+				"Package Control: Install Package"
+			]
+		],
+		"width": 496.0
+	},
+	"console":
+	{
+		"height": 130.0,
+		"history":
+		[
+			"math.gcd(0, 1)",
+			"import math",
+			"exit",
+			"\"nà ní\"",
+			"nà ní",
+			"cls()",
+			"restart",
+			"clr",
+			"clean",
+			"clear()",
+			"clr",
+			"clear",
+			"view.encoding()",
+			"import urllib.request,os,hashlib; h = '6f4c264a24d933ce70df5dedcf1dcaee' + 'ebe013ee18cced0ef93d5f746d80ef60'; pf = 'Package Control.sublime-package'; ipp = sublime.installed_packages_path(); urllib.request.install_opener( urllib.request.build_opener( urllib.request.ProxyHandler()) ); by = urllib.request.urlopen( 'http://packagecontrol.io/' + pf.replace(' ', '%20')).read(); dh = hashlib.sha256(by).hexdigest(); print('Error validating download (got %s instead of %s), please try manual install' % (dh, h)) if dh != h else open(os.path.join( ipp, pf), 'wb' ).write(by)"
+		]
+	},
+	"distraction_free":
+	{
+		"menu_visible": true,
+		"show_minimap": false,
+		"show_open_files": false,
+		"show_tabs": false,
+		"side_bar_visible": false,
+		"status_bar_visible": false
+	},
+	"file_history":
+	[
+		"/C/Users/User/Documents/bai-tap-lon/run.sh",
+		"/C/Users/User/Documents/bai-tap-lon/gui.cpp",
+		"/C/Users/User/Documents/bai-tap-lon/main.cpp",
+		"/C/Users/User/Documents/input.txt",
+		"/C/Users/User/Downloads/easy_come_easy_go/nhap_lieu_app/telex_to_vnese.py",
+		"/C/Users/User/Documents/try.cpp",
+		"/C/Users/User/Downloads/easy_come_easy_go/nhap_lieu_app/main.py",
+		"/C/Users/User/Documents/attribute_parser_hackerrank.cpp",
+		"/C/Users/User/Downloads/easy_come_easy_go/nhap_lieu_app/new_van.txt",
+		"/C/Users/User/Downloads/easy_come_easy_go/nhap_lieu_app/replace.py",
+		"/C/Users/User/Downloads/easy_come_easy_go/nhap_lieu_app/van_tieng_viet_2.txt",
+		"/C/Users/User/Downloads/easy_come_easy_go/nhap_lieu_app/van_tieng_viet.txt",
+		"/C/Users/User/Downloads/easy_come_easy_go/nhap_lieu_app/requirement.md",
+		"/C/Users/User/Downloads/easy_come_easy_go/nhap_lieu_app/gui.py",
+		"/C/Users/User/Documents/hangman_game/gui.py",
+		"/C/Users/User/Documents/hangman_game/gui.pyc",
+		"/C/Users/User/Downloads/easy_come_easy_go/nhap_lieu_app/student.py",
+		"/C/Users/User/Downloads/easy_come_easy_go/nhap_lieu_app/write_to_excel.py",
+		"/C/Users/User/Documents/casio-site/camdenre.github.io-master/src/app/js/menuInteraction.js",
+		"/C/Users/User/Documents/casio-site/camdenre.github.io-master/src/app/js/latexGenerator.js",
+		"/C/Users/User/Documents/casio-site/camdenre.github.io-master/src/app/js/keyboardInteraction.js",
+		"/C/Users/User/Documents/casio-site/camdenre.github.io-master/src/app/html/boi_test_html.html",
+		"/C/Users/User/Documents/casio-site/template.html",
+		"/C/Users/User/Documents/casio-site/casio-fx-570es-plus.html",
+		"/C/Users/User/Documents/casio-site/casio-fx-570vn-plus.html",
+		"/C/Users/User/Documents/casio-site/calculator.js",
+		"/C/Users/User/Documents/casio-site/casio-fx-570es-plus.css",
+		"/C/Users/User/Documents/casio-site/test.html",
+		"/C/Users/User/Documents/casio-site/download.html",
+		"/C/Users/User/Documents/dragon_book_p2.md",
+		"/C/Users/User/Documents/dragon_book.md",
+		"/C/Users/User/Downloads/Documents/BKpHnhRng.html",
+		"/C/Users/User/Documents/index.txt",
+		"/C/Users/User/Documents/casio-site/vinacal.html",
+		"/C/Users/User/Documents/casio-site/test.css",
+		"/C/Users/User/Documents/casio-site/vinacal.css",
+		"/E/neihousaigaai/casio-site/need_to_do.md",
+		"/E/neihousaigaai/casio-site/camdenre.github.io-master/src/app/html/boi_test_html_backup.html",
+		"/E/neihousaigaai/casio-site/casio-fx-570es-plus.html",
+		"/E/neihousaigaai/casio-site/camdenre.github.io-master/src/app/js/keyboardInteraction.js",
+		"/E/neihousaigaai/casio-site/camdenre.github.io-master/src/lib/spin.min.js",
+		"/E/neihousaigaai/casio-site/camdenre.github.io-master/src/app/html/EquationEditor.html",
+		"/E/neihousaigaai/casio-site/camdenre.github.io-master/src/app/js/equationEditor.js",
+		"/E/neihousaigaai/casio-site/camdenre.github.io-master/src/app/js/menuInteraction.js",
+		"/E/neihousaigaai/casio-site/camdenre.github.io-master/src/app/js/equation-components/misc/rightAngleBracket.js",
+		"/E/neihousaigaai/casio-site/camdenre.github.io-master/src/app/js/equation-components/misc/leftParenthesisBracket.js",
+		"/E/neihousaigaai/casio-site/camdenre.github.io-master/src/app/js/equation-components/misc/rightParenthesisBracket.js",
+		"/E/neihousaigaai/casio-site/camdenre.github.io-master/src/app/js/latexGenerator.js",
+		"/C/Users/User/Downloads/Compressed/challenge/Children.java",
+		"/C/Users/User/AppData/Local/Temp/7zO87078667/Parent.java",
+		"/C/Users/User/Downloads/Compressed/challenge/run.sh",
+		"/C/Users/User/Downloads/Compressed/challenge/challenge/children/Children.class",
+		"/C/Users/User/Downloads/Compressed/challenge/RunMe.java",
+		"/C/Users/User/Downloads/Compressed/challenge/challenge/RunMe.java",
+		"/C/Users/User/Downloads/Compressed/challenge/challenge/Children.java",
+		"/C/Users/User/Documents/5_girls.py",
+		"/C/Users/User/Documents/test-log/test.sh",
+		"/E/neihousaigaai/casio-site/test.html",
+		"/E/neihousaigaai/try_audio.html",
+		"/E/neihousaigaai/casio-site/simulator.html",
+		"/E/neihousaigaai/casio-site/img/calc/vinacal/vinacal-570es-plus-ii-gray-2.jpg",
+		"/E/neihousaigaai/casio-site/download.html",
+		"/E/neihousaigaai/casio-site/casio-fx-570es-plus.css",
+		"/E/neihousaigaai/casio-site/camdenre.github.io-master/src/app/css/equationEditor.css",
+		"/E/neihousaigaai/casio-site/lib/matheditor_edited.js",
+		"/E/neihousaigaai/casio-site/index.html",
+		"/E/neihousaigaai/casio-site/try.html",
+		"/E/neihousaigaai/casio-site/package.json",
+		"/E/neihousaigaai/casio-site/node_modules/big-integer/README.md",
+		"/E/neihousaigaai/casio-site/vinacal.css",
+		"/E/neihousaigaai/casio-site/lib/mathquill.test.js",
+		"/E/neihousaigaai/casio-site/lib/matheditor.js",
+		"/E/tkb-uet/create_tkb.py",
+		"/E/neihousaigaai/casio-site/try.css",
+		"/E/neihousaigaai/casio-site/vinacal.html",
+		"/E/neihousaigaai/casio-site/test.css",
+		"/E/neihousaigaai/casio-site/vinacal2.html",
+		"/E/neihousaigaai/casio-site/sqrt_svg_line.html",
+		"/E/neihousaigaai/casio-site/img/mod/sqrt_transparent.svg",
+		"/C/Users/User/Downloads/Documents/4 trang 233.cpp",
+		"/C/Users/User/Documents/plcool.in",
+		"/C/Users/User/Documents/fuck-uetcodehub/submit.py",
+		"/C/Users/User/Documents/login_dangkyhoc.py",
+		"/E/tkb_data.py",
+		"/E/neihousaigaai/self-minna-no-nihongo-1/vocabulary.json",
+		"/E/neihousaigaai/self-minna-no-nihongo-1/verbs_with_objects.json",
+		"/E/neihousaigaai/self-minna-no-nihongo-1/unit_06.py",
+		"/E/neihousaigaai/self-minna-no-nihongo-1/unit_05.py",
+		"/E/neihousaigaai/self-minna-no-nihongo-1/unit_04.py",
+		"/D/_JP/minna no nihongo 1 - unit 3.md",
+		"/C/Users/User/.vimrc",
+		"/C/Users/User/Documents/data.txt",
+		"/C/Users/User/Documents/twitter_emoji_batch_download.txt",
+		"/E/neihousaigaai/news-from-json-to-html/to_github/news.css",
+		"/E/neihousaigaai/news-from-json-to-html/to_github/news.html",
+		"/E/neihousaigaai/news-from-json-to-html/to_github/index.html",
+		"/E/neihousaigaai/news-from-json-to-html/to_github/news.json",
+		"/E/neihousaigaai/news-from-json-to-html/to_github/readme.md",
+		"/E/neihousaigaai/news-from-json-to-html/news.json",
+		"/E/neihousaigaai/news-from-json-to-html/news.html",
+		"/E/neihousaigaai/news-from-json-to-html/index.html",
+		"/E/neihousaigaai/news-from-json-to-html/news.css",
+		"/E/neihousaigaai/[Git]/radio-canto-master/data.json",
+		"/C/Users/User/Downloads/Documents/school/BT Cơ nhiệt/VLDC1/Chuong 03_05.htm",
+		"/C/Users/User/Downloads/Documents/school/BT Cơ nhiệt/VLDC1/Chuong 03_06.htm",
+		"/C/Users/User/Downloads/Documents/school/BT Cơ nhiệt/VLDC1/Chuong 03_04.htm",
+		"/C/Users/User/Downloads/Documents/school/BT Cơ nhiệt/VLDC1/Chuong 03_03.htm",
+		"/C/Users/User/Downloads/Documents/school/BT Cơ nhiệt/VLDC1/Chuong 03_01.htm",
+		"/C/Users/User/Downloads/Documents/school/BT Cơ nhiệt/VLDC1/Chuong 03_07.htm",
+		"/C/Users/User/Downloads/Documents/school/BT Cơ nhiệt/VLDC1/Chuong 03_02.htm",
+		"/C/Users/User/Documents/ideone_8eG2xF.cpp",
+		"/C/Users/User/Documents/try_vim.py",
+		"/C/Program Files (x86)/Vim/vim81/colors/monokai.vim",
+		"/E/neihousaigaai/news-from-json-to-html/load_news.js",
+		"/E/neihousaigaai/news-from-json-to-html/news1.html",
+		"/E/Tu/Tu's Folder/Video/Chinese/Film/The Kid 1999/The.Kid-PosTX.cht.ass",
+		"/E/Tu/Tu's Folder/Video/Chinese/Film/The Kid 1999/The Kid (1999) _ vi (scrap).ass",
+		"/D/result.txt",
+		"/D/la_fontaine.md",
+		"/D/la_fontaine_batch_download.txt",
+		"/D/livre_01.md",
+		"/D/crawl_la_fontaine.py",
+		"/E/neihousaigaai/self-minna-no-nihongo-1/readme.md",
+		"/C/Users/User/Documents/test.txt",
+		"/C/Program Files (x86)/Vim/_vimrc",
+		"/C/Program Files (x86)/Vim/_vimrc~",
+		"/C/Program Files (x86)/Vim/._vimrc.un~",
+		"/E/neihousaigaai/casio-site/vinacal2.css"
+	],
+	"find":
+	{
+		"height": 70.0
+	},
+	"find_in_files":
+	{
+		"height": 158.0,
+		"where_history":
+		[
+		]
+	},
+	"find_state":
+	{
+		"case_sensitive": true,
+		"find_history":
+		[
+			"     ",
+			"> ",
+			"isupper ",
+			"'J':",
+			"'X':",
+			"'R':",
+			"'S':",
+			"'F':",
+			"'Z':",
+			"'([ZFSRXJ])':",
+			"print(",
+			"(.+\\n)\\1+",
+			"an",
+			"(.+\\n)\\1+",
+			"v",
+			"(.+\\n)\\1+",
+			" ",
+			"\\*",
+			"[bcdghklmnpqrstxyđ]+",
+			", |– ",
+			"gi",
+			"qu",
+			"uê",
+			"(.+\\n)\\1+",
+			"[ỳýỷỹỵ]",
+			"[ìíỉĩị]",
+			"(.+\\n)\\1+",
+			"[ừứửữự]",
+			"[ùúủũụ]",
+			"[ờớởỡợ]",
+			"[ồốổỗộ]",
+			"[òóỏõọ]",
+			"(.+\\n)\\1+",
+			"[ềếểễệ]",
+			"[èéẻẽẹ]",
+			"[ắằẳẵặ]",
+			"[ấầẩẫậ]",
+			"[áàảãạ]",
+			", |– ",
+			"[ấầẩẫậ]",
+			"[áàảãạ]",
+			"áàảãạ",
+			"(.+\\n)\\1+",
+			"– ",
+			"- ",
+			" - ",
+			", ",
+			"o[áàảãạ](.)?,",
+			"(,? )[bcdghklmnpqrstxyđ]+",
+			"\\*",
+			"(,? )[bcdghklmnpqrstxyđ]+",
+			"[bcdghklmnpqrstxy]+",
+			"(,? )[^aiueoy]+",
+			"[^ aiueoy]+",
+			"[^aiueoy]+",
+			"^[aiueoy]+",
+			" ",
+			"student_x",
+			"\\t",
+			"_x",
+			"i2",
+			"i1",
+			">     ",
+			"201.",
+			"X U",
+			"Bài#* (\\d+):",
+			"(.+)#### (.+)",
+			"^(.+)#### (.+)$",
+			"^(.+)#### (.+)$2",
+			"INPUT\\nOUTPUT",
+			"^(\\d+):",
+			"Bài#* (\\d+).",
+			"^(\\d+)(\\(.+?\\))",
+			"^(\\d+)\\(.+?\\)",
+			"^(\\d+)\\(.+\\)",
+			"Bài (\\d+):",
+			"20\\d.",
+			"20\\d",
+			"201\\.",
+			"201.",
+			"201",
+			" , ",
+			"INPUT\\nOUTPUT",
+			"^ +",
+			"^ *",
+			"\\s?: .+(\\(.+\\))",
+			" ####",
+			"(\\d+\\.)\\s?(\\S)",
+			"(\\d+\\.)(\\S)",
+			"9989",
+			"(\\d{4}+, \\d{4}+, \\d{4}+, \\d{4}+, \\d{4}+, \\d{4}+, \\d{4}+, \\d{4}+, \\d{4}+, \\d{4}+, \\d{4}+, \\d{4}+, \\d{4}+,) ",
+			"\\\\d+",
+			"\\d",
+			"\\\\d+",
+			"(\\d+)\\s+",
+			"XXXX",
+			"LXXXX",
+			"DCCCC",
+			"([VX])I{4}",
+			"VI{4}",
+			"I{5}",
+			"span <",
+			"<span <span",
+			"<span ",
+			"<span <",
+			"\\d+(    )?",
+			"    ",
+			"removeCursor",
+			"\\",
+			"updateHighlightFormatting",
+			"generateLatex(expr.operands.operand);",
+			"'",
+			"bigOperatorToLatex",
+			"largeOp",
+			"Sum",
+			">\n",
+			"leftAngle",
+			"bar",
+			"overline",
+			"menuItem",
+			");\n",
+			"id",
+			"leftAngleBracket",
+			"leftAngleBracketButton",
+			"square",
+			"root",
+			"sqrt",
+			"integrals"
+		],
+		"highlight": true,
+		"in_selection": false,
+		"preserve_case": false,
+		"regex": true,
+		"replace_history":
+		[
+			"    ",
+			"",
+			"isupper() ",
+			"'j':",
+			"'x':",
+			"'r':",
+			"'s':",
+			"'f':",
+			"'z':",
+			"'$1':",
+			"$1",
+			"",
+			"\\1",
+			"",
+			"\\n",
+			"",
+			"$1",
+			"y",
+			"i",
+			"$1",
+			"ư",
+			"u",
+			"ơ",
+			"ô",
+			"o",
+			"$1",
+			"ê",
+			"e",
+			"ă",
+			"â",
+			"a",
+			"\\n",
+			"â",
+			"a",
+			"$1",
+			"",
+			"\\n",
+			"oa$1,",
+			"$1",
+			"",
+			"$1",
+			"\\n",
+			"new_student",
+			"\", \"",
+			"",
+			"L",
+			"R",
+			"",
+			"XÂU",
+			"#### $1.",
+			"$1$2",
+			"\\n| INPUT | OUTPUT |\\n|-------|--------|",
+			"#### $1.",
+			"#### $1. $2",
+			"#### $1.",
+			", ",
+			"\\n| INPUT | OUTPUT |\\n|-------|--------|",
+			"| INPUT | OUTPUT |\\n|-------|--------|",
+			"",
+			": $1",
+			"####",
+			"#### $1 $2",
+			"$1\\n",
+			"(\\d{4}+, \\d{4}+, \\d{4}+, \\d{4}+, \\d{4}+, \\d{4}+, \\d{4}+, \\d{4}+, \\d{4}+, \\d{4}+, \\d{4}+, \\d{4}+, \\d{4}+,)\\n",
+			"\\\\d{4}",
+			"\\d{4}",
+			"$1, ",
+			"XC",
+			"CM",
+			"I$1",
+			"",
+			"\\t",
+			"press_btn('\\u00B2')",
+			"class=\"calc_btn_control_bg little_higher_control\"",
+			"_bg",
+			"calc_btn_control_bg",
+			"calc_btn_round",
+			"calc_btn_control",
+			"original_log",
+			"13\\t$1\\t$3\\t$4\\t\\t$5",
+			"12\\t$1\\t$3\\t$4\\t\\t$5",
+			"11\\t$1\\t$3\\t$4\\t\\t$5",
+			"10\\t$1\\t$3\\t$4\\t\\t$5",
+			"9\\t$1\\t$3\\t$4\\t\\t$5",
+			"8\\t$1\\t$3\\t$4\\t\\t$5",
+			"8\\t$1\\t$3\\t$4\\t$5",
+			"\\t",
+			"$1$2",
+			"$1",
+			"7\\t$1\\t$2\\t$3",
+			"570VN",
+			"calc_btn_round calc_btn_control_bg",
+			"calc_btn_small",
+			"calc_btn_big big_btn_normal",
+			"",
+			"a $2 $1",
+			"press_btn$1",
+			"squared",
+			": {",
+			" { $1 $2 $3 },",
+			" $1 $2 $3",
+			" ",
+			"insert_text",
+			"scope",
+			"document.getElementById(\"calc_output\").innerHTML ",
+			"(\"calc_output\").innerHTML",
+			"(\"calc_output\").value",
+			"\"",
+			"\\(\"calc_output\"\\)",
+			"\"",
+			"\\('calc_output'\\)",
+			"('calc_output').textContent",
+			"",
+			"#calc_view",
+			"font-size: 45px;",
+			"font-size: 25px;",
+			"\\n$1",
+			", $1",
+			", ",
+			"tab: 1",
+			"",
+			"<",
+			">",
+			"<",
+			"<div class=\"btn_div\" style=\"$1\">\n                            <div class=\"btn_upper_div\">",
+			"<span class=\"hidden\"></span>",
+			"<span class=\"calc_alpha_text\">",
+			"<span class=\"calc_shift_text\">"
+		],
+		"reverse": false,
+		"show_context": true,
+		"use_buffer2": true,
+		"whole_word": false,
+		"wrap": true
+	},
+	"groups":
+	[
+		{
+			"sheets":
+			[
+			]
+		}
+	],
+	"incremental_find":
+	{
+		"height": 31.0
+	},
+	"input":
+	{
+		"height": 65.0
+	},
+	"layout":
+	{
+		"cells":
+		[
+			[
+				0,
+				0,
+				1,
+				1
+			]
+		],
+		"cols":
+		[
+			0.0,
+			1.0
+		],
+		"rows":
+		[
+			0.0,
+			1.0
+		]
+	},
+	"menu_visible": true,
+	"output.exec":
+	{
+		"height": 137.0
+	},
+	"output.find_results":
+	{
+		"height": 0.0
+	},
+	"output.mdpopups":
+	{
+		"height": 0.0
+	},
+	"pinned_build_system": "",
+	"project": "bai-tap-lon.sublime-project",
+	"replace":
+	{
+		"height": 114.0
+	},
+	"save_all_on_build": false,
+	"select_file":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"select_project":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"select_symbol":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"selected_group": 0,
+	"settings":
+	{
+	},
+	"show_minimap": true,
+	"show_open_files": false,
+	"show_tabs": true,
+	"side_bar_visible": true,
+	"side_bar_width": 277.0,
+	"status_bar_visible": true,
+	"template_settings":
+	{
+	}
+}
