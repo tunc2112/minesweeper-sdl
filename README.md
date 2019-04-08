@@ -4,6 +4,27 @@ MIT License (c) 2019
 
 Documentations: [md](documentations.md) | [pdf](documentations.pdf)
 
+## Rules
+
+- http://minesweeperonline.com/
+
+- Click chuột trái vào 1 ô:
+	- nếu ô đó trắng -> loang
+	- nếu ô đó có số -> không loang
+
+- Click chuột giữa vào 1 ô:
+	- highlight 8 ô xung quanh
+	- nếu 8 ô xung quanh đã đánh đầy đủ bom -> loang
+	- nếu không đủ -> không có phản ứng gì
+
+- Click chuột phải vào 1 ô:
+	- nếu không có cờ -> đặt cờ
+	- nếu có cờ -> bỏ cờ
+
+- Trạng thái cuối cùng:
+	- sống: hiện hết bom
+	- chết: fill đỏ các ô có bom nổ, dấu x các chỗ đặt sai vị trí
+
 ## Requirements
 
 - g++
@@ -100,6 +121,10 @@ cd bai-tap-lon
 
 - `SDL_Quit()`: [old docs](https://www.libsdl.org/release/SDL-1.2.15/docs/html/sdlquit.html), [free() sample code](https://ideone.com/S4B9Jq), 
 
+- http://members.chello.nl/w.boeke/SDL-widgets/
+
+- https://github.com/AlfonsoJLuna/minesweeper
+
 ---
 
 ## Related links
@@ -118,11 +143,11 @@ cd bai-tap-lon
 
 - `catch event window event of which window sdl` gg
 
+- https://wiki.libsdl.org/SDL_MouseButtonEvent
+
 ### other
 
 - https://gist.github.com/roxygen/dd266f4b96fdf33537eb
-
-- https://wiki.libsdl.org/SDL_MouseButtonEvent
 
 - https://en.cppreference.com/w/cpp/io/clog
 

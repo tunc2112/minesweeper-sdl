@@ -1,12 +1,9 @@
-#ifndef _gui_h
-#define _gui_h
+#ifndef _GUI_H
+#define _GUI_H
 
 #include <SDL2/SDL.h>
-#include <string>
 #include <set>
 #include <utility>
-
-const int NONE = -1;
 
 class Window {
 public:
@@ -15,11 +12,12 @@ public:
 
 	Window(const char* window_title="", int width=400, int height=300);
 	~Window();
-
+	/*
+	const int NONE = -1;
 	void setWindowTitle(const char* new_title);
 	void setWindowSize(int width=NONE, int height=NONE);
 	void config(const char* new_window_title="", int new_width=NONE, int new_height=NONE);
-
+	*/
 	virtual void main_activity() {};
 	void close();
 };
@@ -29,13 +27,19 @@ public:
 	RunningProcesses();
 	~RunningProcesses();
 	void add_process(Window* win);
-	void remove_process(int win_id);
-	void remove_process(Window* win);
+	void end_process(int win_id);
+	void end_process(Window* win);
 	void mainloop();
 	void kill_all();
 
 private:
 	std::set< std::pair<int, Window*> > running_processes;
+};
+
+class BombFieldGUI {
+public:
+	BombFieldGUI();
+	~BombFieldGUI();
 };
 
 #endif

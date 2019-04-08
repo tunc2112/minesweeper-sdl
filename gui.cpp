@@ -1,6 +1,5 @@
 #include <SDL2/SDL.h>
 #include <iostream>
-#include <string>
 #include <set>
 #include <cassert>
 #include <utility>
@@ -24,7 +23,8 @@ void Window::close() {
 
 	SDL_DestroyRenderer(renderer);
 	SDL_DestroyWindow(root);
-	// SDL_QuitSubSystem(SDL_INIT_VIDEO);
+	renderer = NULL;
+	root = NULL;
 }
 
 RunningProcesses::RunningProcesses() {
@@ -41,7 +41,7 @@ void RunningProcesses::add_process(Window* win) {
 	running_processes.insert(std::make_pair(win_id, win));
 }
 
-void RunningProcesses::remove_process(int win_id) {
+void RunningProcesses::end_process(int win_id) {
 	std::pair<int, Window*> tmp(win_id, NULL);
 	std::set< std::pair<int, Window*> >::iterator win_it = running_processes.lower_bound(tmp);
 
@@ -59,7 +59,7 @@ void RunningProcesses::remove_process(int win_id) {
 	}
 }
 
-void RunningProcesses::remove_process(Window* win) {
+void RunningProcesses::end_process(Window* win) {
 	assert(win != NULL);
 
 	if (win != NULL) {
@@ -99,10 +99,21 @@ void RunningProcesses::mainloop() {
 			}
 			if (event.type == SDL_WINDOWEVENT) {
 				if (event.window.event == SDL_WINDOWEVENT_CLOSE) {
-					// Window* win = SDL_GetWindowFromID(event.window.windowID);
-					// remove_process(win);
-					remove_process(event.window.windowID);
+					end_process(event.window.windowID);
 				}
+			}
+			else if (event.type == SDL_MOUSEBUTTONDOWN) {
+				SDL_MouseButtonEvent mouse_event = event.button;
+				int x = mouse_event.x;
+				int y = mouse_event.y;
+				// SDL_GetMouseState(&x, &y);
+				if (mouse_event.button == SDL_BUTTON_LEFT)
+					std::cout << "LEFT ";
+				else if (mouse_event.button == SDL_BUTTON_MIDDLE)
+					std::cout << "MIDDLE ";
+				else if (mouse_event.button == SDL_BUTTON_RIGHT)
+					std::cout << "RIGHT ";
+				std::cout << x << " " << y << std::endl;
 			}
 		}
 		for (std::set< std::pair<int, Window*> >::iterator
