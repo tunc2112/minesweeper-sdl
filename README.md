@@ -44,19 +44,21 @@ Documentations: [md](documentations.md) | [pdf](documentations.pdf)
 pacman -Syu  # update all packages
 ```
 
-- Restart MSYS shell, then install `make` and `tar`:
+> **Note:** Run `install.sh` for quick install.
+
+- Restart MSYS shell, then install `make`, `tar`, `gdb`:
 ```bash
-pacman -S make tar
+pacman -S make tar mingw-w64-x86_64-gdb
 ```
 
-- Install `GCC` and `GDB` 7.2.0 *(lastest version 8.3.0 got [`libbacktrace could not find executable to open`](https://sourceforge.net/p/mingw-w64/bugs/559/))*:
+- Install `GCC` and `GCC libs` 7.2.0 *(lastest version 8.3.0 got [`libbacktrace could not find executable to open`](https://sourceforge.net/p/mingw-w64/bugs/559/))*:
 ```bash
 pacman -U mingw-w64-x86_64-gcc-7.2.0-3-any.pkg.tar.xz mingw-w64-x86_64-gcc-libs-7.2.0-3-any.pkg.tar.xz
 ```
 
-> **Note**
+> **Note:**
 > 
-> - Download `mingw-*-7.2.0-3-any-pkg-tar-xz` from [here](http://repo.msys2.org/mingw/x86_64/).
+> - Download `mingw-gcc*-7.2.0-3-any.pkg.tar.gz` from [here](http://repo.msys2.org/mingw/x86_64/).
 > - Replace `x86_64` to `i686` if you're using Windows 32-bit.
 
 - Install SDL2:
@@ -131,6 +133,8 @@ cd bai-tap-lon
 
 - http://wiki.ros.org/CppStyleGuide
 
+- https://blog.vietanhdev.com/posts/thuat-toan-loang-trong-do-min/
+
 ### event
 
 - https://www.stdio.vn/articles/xu-ly-su-kien-trong-sdl-287
@@ -150,3 +154,21 @@ cd bai-tap-lon
 - https://gist.github.com/roxygen/dd266f4b96fdf33537eb
 
 - https://en.cppreference.com/w/cpp/io/clog
+
+
+## Nothing
+
+```python
+>>> def F(a, b, p, x):
+	res = 0
+	for n in range(1, x+1):
+		if (n * a**n) % p == b:
+			print(n)
+			res += 1
+	return res
+
+>>> F(4, 6, 7, 13)
+6
+1
+>>> F(4, 6, 7, 13)
+```
