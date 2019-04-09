@@ -38,8 +38,13 @@ private:
 
 class BombFieldGUI {
 public:
-	BombFieldGUI();
+	BombFieldGUI(MinesweeperCore gc);
 	~BombFieldGUI();
+	void show_all_cells();
+	void open_cells(int r, int c);
+
+private:
+	MinesweeperCore game_core;
 };
 
 #endif

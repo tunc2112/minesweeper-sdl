@@ -124,3 +124,17 @@ void RunningProcesses::mainloop() {
 	}
 	kill_all();
 }
+
+BombFieldGUI::BombFieldGUI(MinesweeperCore gc) {
+	game_core = gc;
+}
+
+BombFieldGUI::~BombFieldGUI() {}
+
+void BombFieldGUI::show_all_cells() {
+
+}
+
+void BombFieldGUI::open_cells(int r, int c) {
+	
+}
