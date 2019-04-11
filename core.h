@@ -1,9 +1,11 @@
 #ifndef _CORE_H
 #define _CORE_H
 
+#include <string>
+
 class MinesweeperCore {
 public:
-	MinesweeperCore(string level="beginner");
+	MinesweeperCore(std::string level="beginner");
 	MinesweeperCore(int _w, int _h, int _bombs);
 	~MinesweeperCore();
 	void setup();
@@ -15,14 +17,13 @@ private:
 	int bombs;
 	int status[101][101];
 	int count_bombs[101][101];
+	bool game_over = false;
 
-	const int dr[8] = {-1, -1,  1, 1, -1,  0, 0, 1};
-	const int dc[8] = {-1,  1, -1, 1,  0, -1, 1, 0};
-	const int BOMB = -1;
+	static const int BOMB = -1;
 	enum cell_status {
-		COVERED;
-		OPENED;
-		FLAGGED;
+		COVERED,
+		OPENED,
+		FLAGGED
 	};
 };
 

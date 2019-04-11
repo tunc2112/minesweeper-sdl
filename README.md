@@ -14,7 +14,7 @@ Documentations: [md](documentations.md) | [pdf](documentations.pdf)
 
 - Click chuột giữa vào 1 ô:
 	- highlight 8 ô xung quanh
-	- nếu 8 ô xung quanh đã đánh đầy đủ bom -> loang
+	- nếu 8 ô xung quanh đã đánh đầy đủ bom -> loang (có thể chết)
 	- nếu không đủ -> không có phản ứng gì
 
 - Click chuột phải vào 1 ô:
@@ -113,6 +113,8 @@ cd bai-tap-lon
 
 ## References
 
+- http://guides.lib.berkeley.edu/how-to-write-good-documentation
+
 - [Official documentations](https://wiki.libsdl.org/FrontPage)
 
 - [Tutorial](http://lazyfoo.net/tutorials/SDL/)
@@ -126,6 +128,16 @@ cd bai-tap-lon
 - http://members.chello.nl/w.boeke/SDL-widgets/
 
 - https://github.com/AlfonsoJLuna/minesweeper
+
+- http://forums.libsdl.org/viewtopic.php?p=41075
+
+- [load image to renderer](https://gist.github.com/armornick/3434362)
+
+- https://stackoverflow.com/questions/21890627/drawing-a-rectangle-with-sdl2
+
+- http://sdl.beuc.net/sdl.wiki/FAQ_Console
+
+- https://wiki.libsdl.org/SDL_RenderPresent
 
 ---
 
@@ -148,6 +160,8 @@ cd bai-tap-lon
 - `catch event window event of which window sdl` gg
 
 - https://wiki.libsdl.org/SDL_MouseButtonEvent
+
+- https://gamedev.stackexchange.com/questions/56349/how-to-implement-sdl-button-menu-gui-with-callbacks
 
 ### other
 

@@ -1,23 +1,41 @@
 #include <SDL2/SDL.h>
-#include <iostream>
-#include <set>
+#include <cstdio>
 #include <cassert>
-#include <utility>
+#include <string>
 #include "gui.h"
+#include "core.h"
 
-Window::Window(const char* window_title, int width, int height) {
+RGBA::RGBA(int _r, int _g, int _b, int _a) {
+	r = _r;
+	g = _g;
+	b = _b;
+	a = _a;
+}
+
+RGBA::RGBA(const RGBA& c) {
+	r = c.r;
+	g = c.g;
+	b = c.b;
+	a = c.a;
+}
+
+MainWindow::MainWindow(const char* window_title, int width, int height) {
 	root = SDL_CreateWindow(window_title, SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED,
 		width, height, SDL_WINDOW_SHOWN);
 
 	renderer = SDL_CreateRenderer(root, -1, SDL_RENDERER_ACCELERATED);
+
+	SDL_SetRenderDrawBlendMode(renderer, SDL_BLENDMODE_BLEND);
 }
 
-Window::~Window() {
+MainWindow::~MainWindow() {
 	renderer = NULL;
 	root = NULL;
 }
 
-void Window::close() {
+// void MainWindow::main_activity(SDL_Event& e) { SDL_Delay(16); }
+
+void MainWindow::close() {
 	assert(renderer != NULL);
 	assert(root != NULL);
 
@@ -27,68 +45,7 @@ void Window::close() {
 	root = NULL;
 }
 
-RunningProcesses::RunningProcesses() {
-	running_processes.clear();
-	assert(SDL_Init(SDL_INIT_VIDEO) == 0);
-}
-
-RunningProcesses::~RunningProcesses() {
-	kill_all();
-}
-
-void RunningProcesses::add_process(Window* win) {
-	int win_id = SDL_GetWindowID(win->root);
-	running_processes.insert(std::make_pair(win_id, win));
-}
-
-void RunningProcesses::end_process(int win_id) {
-	std::pair<int, Window*> tmp(win_id, NULL);
-	std::set< std::pair<int, Window*> >::iterator win_it = running_processes.lower_bound(tmp);
-
-	assert(win_it != running_processes.end() && win_it->second != NULL);
-
-	Window* win = win_it->second;
-	if (win != NULL) {
-		win->close();
-		running_processes.erase(win_it);
-	}
-
-	if (running_processes.size() == 0) { // all processes are closed
-		SDL_Quit();
-		exit(0);
-	}
-}
-
-void RunningProcesses::end_process(Window* win) {
-	assert(win != NULL);
-
-	if (win != NULL) {
-		int win_id = SDL_GetWindowID(win->root);
-		std::pair<int, Window*> tmp(win_id, win);
-		std::set< std::pair<int, Window*> >::iterator win_it = running_processes.find(tmp);
-		assert(win_it != running_processes.end());
-
-		win->close();
-		running_processes.erase(win_it);
-	}
-}
-
-void RunningProcesses::kill_all() {
-	// SDL_Quit shuts down all SDL subsystems and frees the resources allocated to them. 
-	// This should always be called before you exit. 
-	/*
-	// avoiding memory leak
-	for (std::set< std::pair<int, Window*> >::iterator
-	    win_it = running_processes.begin(); win_it != running_processes.end(); win_it++) {
-		Window* win = win_it->second;
-		win->close();
-	}
-	*/
-	SDL_Quit();
-	running_processes.clear();
-}
-
-void RunningProcesses::mainloop() {
+void MainWindow::mainloop() {
 	bool quit = false;
 	while (!quit) {
 		SDL_Event event;
@@ -97,44 +54,134 @@ void RunningProcesses::mainloop() {
 				quit = true;
 				break;
 			}
-			if (event.type == SDL_WINDOWEVENT) {
-				if (event.window.event == SDL_WINDOWEVENT_CLOSE) {
-					end_process(event.window.windowID);
-				}
+			else if (event.type == SDL_WINDOWEVENT) {
+				continue;
 			}
 			else if (event.type == SDL_MOUSEBUTTONDOWN) {
-				SDL_MouseButtonEvent mouse_event = event.button;
-				int x = mouse_event.x;
-				int y = mouse_event.y;
-				// SDL_GetMouseState(&x, &y);
-				if (mouse_event.button == SDL_BUTTON_LEFT)
-					std::cout << "LEFT ";
-				else if (mouse_event.button == SDL_BUTTON_MIDDLE)
-					std::cout << "MIDDLE ";
-				else if (mouse_event.button == SDL_BUTTON_RIGHT)
-					std::cout << "RIGHT ";
-				std::cout << x << " " << y << std::endl;
 			}
-		}
-		for (std::set< std::pair<int, Window*> >::iterator
-		    win_it = running_processes.begin(); win_it != running_processes.end(); win_it++) {
-			Window* win = win_it->second;
-			win->main_activity();
+			main_activity(event);
+			SDL_Delay(16);
 		}
 	}
-	kill_all();
+	close();
 }
 
-BombFieldGUI::BombFieldGUI(MinesweeperCore gc) {
-	game_core = gc;
+Button::Button() {};
+
+Button::Button(MainWindow* win, int w, int h, const RGBA& c, int x, int y) {
+	parent = win;
+	width = w;
+	height = h;
+	color[MOUSE_OUT] = c;
+	packed_x = x;
+	packed_y = y;
+
+	btn_rect = {packed_x, packed_y, width, height};
+}
+
+Button::~Button() {}
+
+int Button::getMouseState() {
+	return mouse_state;
+}
+
+void Button::setChangingStateColor(int state, const RGBA& c) {
+	assert(state == MOUSE_OUT || state == MOUSE_OVER || state == MOUSE_DOWN || state == MOUSE_UP);
+	color[state] = c;
+}
+
+void Button::setColorByMouseState(int state) {
+	SDL_SetRenderDrawColor(parent->renderer, color[state].r, color[state].g, color[state].b, color[state].a);
+	SDL_RenderFillRect(parent->renderer, &btn_rect);
+	SDL_RenderPresent(parent->renderer);
+}
+
+void Button::drawButton() {
+	SDL_SetRenderDrawColor(parent->renderer, color[MOUSE_OUT].r, color[MOUSE_OUT].g,
+	                                         color[MOUSE_OUT].b, color[MOUSE_OUT].a);
+	SDL_RenderFillRect(parent->renderer, &btn_rect);
+	SDL_RenderPresent(parent->renderer);
+}
+
+void Button::bindCommand(command f, std::string clicked_mouse) {
+	if (clicked_mouse == "left")
+		left_click_command = f;
+
+	else if (clicked_mouse == "middle")
+		middle_click_command = f;
+
+	else if (clicked_mouse == "right")
+		right_click_command = f;
+}
+
+void Button::runCommand(SDL_MouseButtonEvent &b, std::string clicked_mouse) {
+	if (clicked_mouse == "left")
+		left_click_command(b);
+
+	else if (clicked_mouse == "middle")
+		middle_click_command(b);
+
+	else if (clicked_mouse == "right")
+		right_click_command(b);
+}
+
+void Button::handleEvent(SDL_Event &event) {
+	if (event.type == SDL_MOUSEMOTION || event.type == SDL_MOUSEBUTTONDOWN || event.type == SDL_MOUSEBUTTONUP) {
+		int x, y;
+		SDL_GetMouseState(&x, &y);
+		bool is_mouse_inside = (packed_x <= x && x <= packed_x + width && packed_y <= y && y <= packed_y + height);
+		// printf("%d %d\n", x, y);
+		// printf("%d %d %d %d ", packed_x, packed_y, packed_x + width, packed_y + height);
+		// printf("%d\n", is_mouse_inside);
+
+		if (is_mouse_inside) {
+			// printf("%d %d\n", x, y);
+			if (event.type == SDL_MOUSEMOTION) {
+				mouse_state = MOUSE_OVER;
+				setColorByMouseState(mouse_state);
+			}
+			else if (event.type == SDL_MOUSEBUTTONDOWN) {
+				mouse_state = MOUSE_DOWN;
+				setColorByMouseState(mouse_state);
+
+				SDL_MouseButtonEvent mouse_event = event.button;
+				if (mouse_event.button == SDL_BUTTON_LEFT) {
+					// printf("%d %d LEFT\n", x, y);
+					if (left_click_command != NULL) {
+						runCommand(mouse_event, "left");
+					}
+				}
+				else if (mouse_event.button == SDL_BUTTON_MIDDLE) {
+					// printf("%d %d MIDDLE\n", x, y);
+					if (middle_click_command != NULL) {
+						runCommand(mouse_event, "middle");
+					}
+				}
+				else if (mouse_event.button == SDL_BUTTON_RIGHT) {
+					// printf("%d %d RIGHT\n", x, y);
+					if (right_click_command != NULL) {
+						runCommand(mouse_event, "right");
+					}
+				}
+			}
+			else if (event.type == SDL_MOUSEBUTTONUP) {
+				mouse_state = MOUSE_UP;
+				setColorByMouseState(mouse_state);
+			}
+		} else {
+			mouse_state = MOUSE_OUT;
+			setColorByMouseState(mouse_state);
+		}
+	}
+}
+
+BombFieldGUI::BombFieldGUI(MainWindow* win, int width, int height, int bombs) {
+	parent = win;
+	game_core = MinesweeperCore(width, height, bombs);
 }
 
 BombFieldGUI::~BombFieldGUI() {}
 
-void BombFieldGUI::show_all_cells() {
+void BombFieldGUI::showAllCells() {}
 
-}
-
-void BombFieldGUI::open_cells(int r, int c) {
-	
-}
+void BombFieldGUI::openCells(int r, int c) {}
