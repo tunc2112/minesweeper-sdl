@@ -1,8 +1,6 @@
 # minesweeper-sdl2
 
-MIT License (c) 2019 
-
-Documentations: [md](documentations.md) | [pdf](documentations.pdf)
+Documentation: [md](documentation.md) | [pdf](documentation.pdf)
 
 ## Rules
 
@@ -31,9 +29,9 @@ Documentations: [md](documentations.md) | [pdf](documentations.pdf)
 
 - SDL2
 
-## Installation
+### Installation
 
-### Windows
+#### Windows
 
 - Install [MSYS2](http://www.msys2.org/)
 
@@ -71,24 +69,20 @@ pacman -Ss x86_64-sdl2
 pacman -S mingw-w64-x86_64-SDL2 mingw-w64-x86_64-SDL2_gfx mingw-w64-x86_64-SDL2_image mingw-w64-x86_64-SDL2_mixer mingw-w64-x86_64-SDL2_net mingw-w64-x86_64-SDL2_ttf
 ```
 
-### Linux
+#### Linux
 
-#### Using command line
+##### Using command line
 
 - Open your distro's Terminal.
 
 - Update your distro.
 
 - Type:
-	- For Debian:
-		- `apt-cache search libsdl2`
-		- `apt-get install libsdl2-dev`
+	- For Debian: `apt-get install libsdl2-dev`
 
-	- For Fedora/CentOS:
-		- `yum search SDL2-devel`
-		- `yum install SDL2-devel`
+	- For Fedora/CentOS: `yum install SDL2-devel`
 
-#### Install from source
+##### Install from source
 
 - Get the `.zip`/`.tar.gz` file from [here](https://www.libsdl.org/download-2.0.php#source).
 
@@ -98,20 +92,31 @@ pacman -S mingw-w64-x86_64-SDL2 mingw-w64-x86_64-SDL2_gfx mingw-w64-x86_64-SDL2_
 
 - Install the package: `make install`
 
-## Build
+## Compilation
 
-- Open MSYS2 shell.
+- Open MSYS2 shell/Terminal.
 
-- Clone repository
+- Clone repository.
 
 ```bash
 git clone https://github.com/tunc2112/bai-tap-lon
 cd bai-tap-lon
 ```
 
-- Run `test.sh`.
+- Run.
+```
+./test.sh
+```
+
+## Contributing
+
+## License
+
+MIT License (c) 2019
 
 ## References
+
+- https://2.bp.blogspot.com/-_oU3s1iadRw/XAkw2Q6DEMI/AAAAAAAABNQ/22kYI4c804ooQ7uCJhK5Epo4subN8AsaQCPcBGAYYCw/s1600/minesweeper_tiles.jpg
 
 - http://guides.lib.berkeley.edu/how-to-write-good-documentation
 
@@ -138,6 +143,14 @@ cd bai-tap-lon
 - http://sdl.beuc.net/sdl.wiki/FAQ_Console
 
 - https://wiki.libsdl.org/SDL_RenderPresent
+
+- https://gist.github.com/armornick/3434362
+
+- https://www.stdio.vn/articles/load-texture-trong-sdl-288
+
+- http://gigi.nullneuron.net/gigilabs/displaying-an-image-in-an-sdl2-window/
+
+- http://headerphile.com/sdl2/sdl-2-part-7-using-png-files/
 
 ---
 
@@ -168,21 +181,3 @@ cd bai-tap-lon
 - https://gist.github.com/roxygen/dd266f4b96fdf33537eb
 
 - https://en.cppreference.com/w/cpp/io/clog
-
-
-## Nothing
-
-```python
->>> def F(a, b, p, x):
-	res = 0
-	for n in range(1, x+1):
-		if (n * a**n) % p == b:
-			print(n)
-			res += 1
-	return res
-
->>> F(4, 6, 7, 13)
-6
-1
->>> F(4, 6, 7, 13)
-```
