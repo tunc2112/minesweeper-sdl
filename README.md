@@ -152,6 +152,8 @@ MIT License (c) 2019
 
 - http://headerphile.com/sdl2/sdl-2-part-7-using-png-files/
 
+- https://gamedev.stackexchange.com/questions/72613/how-can-i-render-a-texture-to-the-screen-in-sdl2
+
 ---
 
 ## Related links

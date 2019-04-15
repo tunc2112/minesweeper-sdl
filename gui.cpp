@@ -1,10 +1,10 @@
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_image.h>
 #include <cstdio>
+#include <iostream>
 #include <cassert>
 #include <string>
 #include "gui.h"
-#include "core.h"
 
 RGBA::RGBA(int _r, int _g, int _b, int _a) {
 	r = _r;
@@ -18,44 +18,6 @@ RGBA::RGBA(const RGBA& c) {
 	g = c.g;
 	b = c.b;
 	a = c.a;
-}
-
-Image::Image(SDL_Renderer* renderer, std::string img_dir, int crop_x, int crop_y, int crop_width, int crop_height) {
-	texture = IMG_LoadTexture(renderer, img_dir.c_str());
-	assert(texture != NULL);
-
-	texture_part = new SDL_Rect();
-	texture_part->x = crop_x;
-	texture_part->y = crop_y;
-	texture_part->w = crop_width;
-	texture_part->h = crop_height;
-}
-
-Image::Image(SDL_Texture* img_texture) {
-	texture = img_texture;
-	assert(texture != NULL);
-
-	texture_part = NULL;
-}
-
-Image::Image(SDL_Texture* img_texture, int crop_x, int crop_y, int crop_width, int crop_height) {
-	texture = img_texture;
-	assert(texture != NULL);
-
-	texture_part = new SDL_Rect();
-	texture_part->x = crop_x;
-	texture_part->y = crop_y;
-	texture_part->w = crop_width;
-	texture_part->h = crop_height;
-}
-
-Image::~Image() {
-	SDL_DestroyTexture(texture);
-	texture_part = NULL;
-}
-
-void Image::view(SDL_Renderer* renderer, SDL_Rect* dest_rect) {
-	SDL_RenderCopy(renderer, texture, texture_part, dest_rect);
 }
 
 MainWindow::MainWindow(std::string window_title, int width, int height) {
@@ -103,44 +65,11 @@ void MainWindow::mainloop() {
 	close();
 }
 
-Button::Button() {};
-
-Button::Button(MainWindow* win, int w, int h, const RGBA& c, int x, int y) {
-	parent = win;
-	width = w;
-	height = h;
-	color[MOUSE_OUT] = c;
-	packed_x = x;
-	packed_y = y;
-
-	btn_rect = {packed_x, packed_y, width, height};
-}
-
-Button::~Button() {}
-
-int Button::getMouseState() {
+int _Button::getMouseState() {
 	return mouse_state;
 }
 
-void Button::setChangingStateColor(int state, const RGBA& c) {
-	assert(state == MOUSE_OUT || state == MOUSE_OVER || state == MOUSE_DOWN || state == MOUSE_UP);
-	color[state] = c;
-}
-
-void Button::setColorByMouseState(int state) {
-	SDL_SetRenderDrawColor(parent->renderer, color[state].r, color[state].g, color[state].b, color[state].a);
-	SDL_RenderFillRect(parent->renderer, &btn_rect);
-	SDL_RenderPresent(parent->renderer);
-}
-
-void Button::drawButton() {
-	SDL_SetRenderDrawColor(parent->renderer, color[MOUSE_OUT].r, color[MOUSE_OUT].g,
-	                                         color[MOUSE_OUT].b, color[MOUSE_OUT].a);
-	SDL_RenderFillRect(parent->renderer, &btn_rect);
-	SDL_RenderPresent(parent->renderer);
-}
-
-void Button::bindCommand(command f, std::string clicked_mouse) {
+void _Button::bindCommand(command f, std::string clicked_mouse) {
 	if (clicked_mouse == "left")
 		left_click_command = f;
 
@@ -151,7 +80,7 @@ void Button::bindCommand(command f, std::string clicked_mouse) {
 		right_click_command = f;
 }
 
-void Button::runCommand(SDL_MouseButtonEvent &b, std::string clicked_mouse) {
+void _Button::runCommand(SDL_MouseButtonEvent &b, std::string clicked_mouse) {
 	if (clicked_mouse == "left")
 		left_click_command(b);
 
@@ -162,7 +91,7 @@ void Button::runCommand(SDL_MouseButtonEvent &b, std::string clicked_mouse) {
 		right_click_command(b);
 }
 
-void Button::handleEvent(SDL_Event &event) {
+void _Button::handleEvent(SDL_Event &event) {
 	if (event.type == SDL_MOUSEMOTION || event.type == SDL_MOUSEBUTTONDOWN || event.type == SDL_MOUSEBUTTONUP) {
 		int x, y;
 		SDL_GetMouseState(&x, &y);
@@ -175,11 +104,11 @@ void Button::handleEvent(SDL_Event &event) {
 			// printf("%d %d\n", x, y);
 			if (event.type == SDL_MOUSEMOTION) {
 				mouse_state = MOUSE_OVER;
-				setColorByMouseState(mouse_state);
+				setBackgroundByMouseState(mouse_state);
 			}
 			else if (event.type == SDL_MOUSEBUTTONDOWN) {
 				mouse_state = MOUSE_DOWN;
-				setColorByMouseState(mouse_state);
+				setBackgroundByMouseState(mouse_state);
 
 				SDL_MouseButtonEvent mouse_event = event.button;
 				if (mouse_event.button == SDL_BUTTON_LEFT) {
@@ -203,14 +132,110 @@ void Button::handleEvent(SDL_Event &event) {
 			}
 			else if (event.type == SDL_MOUSEBUTTONUP) {
 				mouse_state = MOUSE_UP;
-				setColorByMouseState(mouse_state);
+				setBackgroundByMouseState(mouse_state);
 			}
 		} else {
 			mouse_state = MOUSE_OUT;
-			setColorByMouseState(mouse_state);
+			setBackgroundByMouseState(mouse_state);
 		}
 	}
 }
+
+Button::Button() {}
+
+Button::Button(MainWindow* win, const RGBA& c, int w, int h, int x, int y) {
+	parent = win;
+	width = w;
+	height = h;
+	color[MOUSE_OUT] = c;
+	packed_x = x;
+	packed_y = y;
+
+	btn_rect.x = packed_x;
+	btn_rect.y = packed_y;
+	btn_rect.w = width;
+	btn_rect.h = height;
+}
+
+Button::~Button() {}
+
+void Button::drawButton() {
+	SDL_SetRenderDrawColor(parent->renderer, color[MOUSE_OUT].r, color[MOUSE_OUT].g,
+	                                         color[MOUSE_OUT].b, color[MOUSE_OUT].a);
+	SDL_RenderFillRect(parent->renderer, &btn_rect);
+	SDL_RenderPresent(parent->renderer);
+}
+
+void Button::setChangingStateBackground(int state, const RGBA& c) {
+	assert(state == MOUSE_OUT || state == MOUSE_OVER || state == MOUSE_DOWN || state == MOUSE_UP);
+	color[state] = c;
+}
+
+void Button::setBackgroundByMouseState(int state) {
+	SDL_SetRenderDrawColor(parent->renderer, color[state].r, color[state].g, color[state].b, color[state].a);
+	SDL_RenderFillRect(parent->renderer, &btn_rect);
+	SDL_RenderPresent(parent->renderer);
+}
+
+ButtonImage::ButtonImage() {
+	bg_image[MOUSE_OUT] = NULL;
+	bg_image[MOUSE_OVER] = NULL;
+	bg_image[MOUSE_DOWN] = NULL;
+	bg_image[MOUSE_UP] = NULL;
+}
+
+ButtonImage::ButtonImage(MainWindow* win, SDL_Texture* img, int w, int h, int x, int y) {
+	parent = win;
+	width = w;
+	height = h;
+	bg_image[MOUSE_OUT] = img;
+	packed_x = x;
+	packed_y = y;
+
+	btn_rect.x = packed_x;
+	btn_rect.y = packed_y;
+	btn_rect.w = width;
+	btn_rect.h = height;
+}
+
+ButtonImage::~ButtonImage() {
+	/*
+	if (bg_image[MOUSE_OUT] != NULL)
+		SDL_DestroyTexture(bg_image[MOUSE_OUT]);
+
+	if (bg_image[MOUSE_OVER] != NULL)
+		SDL_DestroyTexture(bg_image[MOUSE_OVER]);
+
+	if (bg_image[MOUSE_DOWN] != NULL)
+		SDL_DestroyTexture(bg_image[MOUSE_DOWN]);
+
+	if (bg_image[MOUSE_UP] != NULL)
+		SDL_DestroyTexture(bg_image[MOUSE_UP]);
+	*/
+}
+
+void ButtonImage::drawButton() {
+	SDL_RenderCopy(parent->renderer, bg_image[MOUSE_OUT], NULL, &btn_rect);
+	SDL_RenderPresent(parent->renderer);
+}
+/*
+void ButtonImage::setChangingStateBackground(int state, SDL_Texture* img) {
+	std::cout << state << std::endl;
+	assert(state == MOUSE_OUT || state == MOUSE_OVER || state == MOUSE_DOWN || state == MOUSE_UP);
+	if (img != NULL)
+		bg_image[state] = img;
+}
+
+void ButtonImage::setBackgroundByMouseState(int state) {
+	SDL_RenderCopy(parent->renderer, bg_image[state], NULL, &btn_rect);
+	SDL_RenderPresent(parent->renderer);
+}
+*/
+void ButtonImage::setBackground(SDL_Texture* img) {
+	SDL_RenderCopy(parent->renderer, img, NULL, &btn_rect);
+	SDL_RenderPresent(parent->renderer);
+}
+
 /*
 BombFieldGUI::BombFieldGUI(MainWindow* win, int width, int height, int bombs) {
 	parent = win;
@@ -223,6 +248,7 @@ void BombFieldGUI::showAllCells() {}
 
 void BombFieldGUI::openCells(int r, int c) {}
 */
+/*
 MinesweeperCore::MinesweeperCore(std::string level) {
 	if (level == "beginner") {
 		width = 8;
@@ -279,7 +305,7 @@ void MinesweeperCore::setup() {
 			}
 }
 
-void showAllCells();
+void MinesweeperCore::showAllCells();
 
 void MinesweeperCore::openCells(int r, int c) {
 	status[r][c] = OPENED;
@@ -295,3 +321,4 @@ void MinesweeperCore::openCells(int r, int c) {
 			}
 	}
 }
+*/
