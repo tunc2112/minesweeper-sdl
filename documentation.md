@@ -1,4 +1,4 @@
-# minesweeper-sdl2 Documentation
+# minesweeper-sdl2
 
 ## Installation
 
@@ -32,7 +32,7 @@
 > void (*main_activity)(SDL_Event& e);
 > ```
 
-#### Constructor & Destructor Documentation
+#### Constructor & Destructor
 
 > ```cpp
 > MainWindow::MainWindow(const char* window_title="", int width=400, int height=300)
@@ -58,7 +58,7 @@
 > MainWindow::~MainWindow()
 > ```
 
-#### Public Member Functions Documentation
+#### Public Member Functions
 
 > ```cpp
 > void MainWindow::mainloop()
@@ -86,7 +86,7 @@
 #include "gui.h"
 ```
 
-#### Constructor & Destructor Documentation
+#### Constructor & Destructor
 
 > ```cpp
 > Button();
@@ -102,7 +102,7 @@
 > ~Button();
 > ```
 
-#### Public Member Functions Documentation
+#### Public Member Functions
 
 > ```cpp
 > int getMouseState();
@@ -190,7 +190,62 @@ Catch event
 
 **Parameters**
 
+### `_Button`
 
-### `BombFieldGUI`
+General type of button.
+
+### `Button`
+
+Button which its background is a RGBA color.
+
+Inherited from class `_Button`.
+
+Using for testing only.
+
+### `ButtonImage`
+
+Button which its background is an image.
+
+Inherited from class `_Button`.
+
+#### Include 
+
+```cpp
+#include "gui.h"
+```
+
+#### Public member attributes
+
+> ```cpp
+> SDL_Window* root
+> ```
+
+> ```cpp
+> SDL_Renderer* renderer
+> ```
+
+> ```cpp
+> void (*main_activity)(SDL_Event& e);
+> ```
+
+#### Constructor & Destructor
+
+> ```cpp
+> ButtonImage();
+> ```
+
+> ```cpp
+> ButtonImage(MainWindow* win, std::string img_dỉr, int w, int h, int x=0, int y=0);
+> ```
+
+> ```cpp
+> ButtonImage(MainWindow* win, SDL_Texture* img, int w, int h, int x=0, int y=0);
+> ```
+
+> ```cpp
+> ~ButtonImage();
+> ```
+
+#### Added Public Member Functions
 
 ### `MinesweeperCore`

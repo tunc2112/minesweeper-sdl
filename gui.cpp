@@ -184,6 +184,20 @@ ButtonImage::ButtonImage() {
 	bg_image[MOUSE_UP] = NULL;
 }
 
+ButtonImage::ButtonImage(MainWindow* win, std::string img_dir, int w, int h, int x, int y) {
+	parent = win;
+	width = w;
+	height = h;
+	bg_image[MOUSE_OUT] = IMG_LoadTexture(win->renderer, img_dir);
+	packed_x = x;
+	packed_y = y;
+
+	btn_rect.x = packed_x;
+	btn_rect.y = packed_y;
+	btn_rect.w = width;
+	btn_rect.h = height;
+}
+
 ButtonImage::ButtonImage(MainWindow* win, SDL_Texture* img, int w, int h, int x, int y) {
 	parent = win;
 	width = w;
@@ -248,7 +262,6 @@ void BombFieldGUI::showAllCells() {}
 
 void BombFieldGUI::openCells(int r, int c) {}
 */
-/*
 MinesweeperCore::MinesweeperCore(std::string level) {
 	if (level == "beginner") {
 		width = 8;
@@ -305,7 +318,9 @@ void MinesweeperCore::setup() {
 			}
 }
 
-void MinesweeperCore::showAllCells();
+void MinesweeperCore::showAllCells() {
+	
+}
 
 void MinesweeperCore::openCells(int r, int c) {
 	status[r][c] = OPENED;
@@ -321,4 +336,3 @@ void MinesweeperCore::openCells(int r, int c) {
 			}
 	}
 }
-*/

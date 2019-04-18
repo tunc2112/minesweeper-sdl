@@ -114,6 +114,7 @@ private:
 class ButtonImage: public _Button {
 public:
 	ButtonImage();
+	ButtonImage(MainWindow* win, std::string img_dỉr, int w, int h, int x=0, int y=0);
 	ButtonImage(MainWindow* win, SDL_Texture* img, int w, int h, int x=0, int y=0);
 	~ButtonImage();
 	void drawButton();
