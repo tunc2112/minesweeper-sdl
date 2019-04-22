@@ -9,11 +9,22 @@ ButtonImage bi1;
 bool flagged = false, clicked = false;
 SDL_Texture *covered_img, *flagged_img, *clicked_img;
 
-void main_activity(SDL_Event& e) {
+MinesweeperGUI* game = NULL;
+
+void capture_event(SDL_Event& e) {
 	for (int i = 0; i < 5; i++)
 		btn_list[i][i].handleEvent(e);
 
 	bi1.handleEvent(e);
+}
+
+void capture_game_event(SDL_Event& e) {
+	int x, y;
+	SDL_GetMouseState(&x, &y);
+	// std::cout << x << " " << y << std::endl;
+
+	if (game != NULL)
+		game->captureEvent(e);
 }
 
 void print(SDL_MouseButtonEvent &b) {
@@ -64,23 +75,31 @@ void setup_homescreen(MainWindow& window) {
 		btn_list[i][i].bindCommand(print, "left");
 		btn_list[i][i].drawButton();
 	}
+	window.captureEvent = &capture_event;
 	// SDL_RenderPresent(window.renderer);
 }
 
 void setup_playscreen(MainWindow& window) {
+	SDL_SetRenderDrawColor(window.renderer, 0, 63, 127, 255);
+	SDL_RenderClear(window.renderer); // clear window
+	game = new MinesweeperGUI(&window, 0, 50, "intermediate");
+	game->setup();
+	game->view(false);
+	window.captureEvent = capture_game_event;
+	SDL_RenderPresent(window.renderer);
 }
 
 /*
 https://wiki.libsdl.org/SDL_CreateTextureFromSurface
 https://wiki.libsdl.org/SDL_CreateRGBSurface
-https://wiki.libsdl.org/SDL_CreateRGBSurfaceFrom
+https://wiki.libsdl.org/SDL_CreateRGBSurfaceFrom 
 */
 
 int main(int argc, char* argv[]) {
-	MainWindow window("SDL2 Test", 450, 350);
-	window.main_activity = &main_activity;
-	setup_homescreen(window);
-	// setup_playscreen(window);
+	MainWindow window("SDL2 Test", 450, 450);
+	// setup_homescreen(window);
+	setup_playscreen(window);
 	window.mainloop();
+	delete game;
 	return 0;
 }

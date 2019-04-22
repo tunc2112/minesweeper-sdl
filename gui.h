@@ -5,7 +5,6 @@
 #include <SDL2/SDL_image.h>
 #include <cassert>
 #include <string>
-#include "core.h"
 
 class RGBA {
 public:
@@ -25,8 +24,8 @@ class MainWindow {
 public:
 	SDL_Window* root = NULL;
 	SDL_Renderer* renderer = NULL;
-	// activity main_activity;
-	void (*main_activity)(SDL_Event& e);
+	// activity captureEvent;
+	void (*captureEvent)(SDL_Event& e);
 
 	MainWindow(std::string window_title="", int width=400, int height=300);
 	~MainWindow();
@@ -114,7 +113,7 @@ private:
 class ButtonImage: public _Button {
 public:
 	ButtonImage();
-	ButtonImage(MainWindow* win, std::string img_dỉr, int w, int h, int x=0, int y=0);
+	ButtonImage(MainWindow* win, std::string img_dir, int w, int h, int x=0, int y=0);
 	ButtonImage(MainWindow* win, SDL_Texture* img, int w, int h, int x=0, int y=0);
 	~ButtonImage();
 	void drawButton();
@@ -125,43 +124,56 @@ private:
 	SDL_Texture* bg_image[TOTAL_MOUSE_STATES];
 };
 
-/*
-class BombFieldGUI {
+class MinesweeperGUI {
 public:
-	BombFieldGUI(MainWindow* win, int width, int height, int bombs);
-	~BombFieldGUI();
-	void showAllCells();
-	void openCells(int r, int c);
-
-private:
-	MainWindow* parent;
-	MinesweeperCore game_core;
-};
-*/
-class MinesweeperCore {
-public:
-	MinesweeperCore(MainWindow* win, std::string level="beginner");
-	MinesweeperCore(MainWindow* win, int _w, int _h, int _bombs);
-	~MinesweeperCore();
+	MinesweeperGUI();
+	MinesweeperGUI(MainWindow* win, int px, int py, std::string level="beginner");
+	MinesweeperGUI(MainWindow* win, int px, int py, int _w, int _h, int _bombs);
+	~MinesweeperGUI();
 	void setup();
-	void showAllCells();
-	void openCells(int r, int c);
+	void toggleFlag(int r, int c);
+	void openCell(int r, int c);
+	void view(bool open_all=false);
+	void openCellsFrom(int r, int c);
+	void captureEvent(SDL_Event& event);
 
 private:
 	MainWindow* parent;
+	int packed_x;
+	int packed_y;
 	int width;
 	int height;
 	int bombs;
-	int status[101][101];
-	int count_bombs[101][101];
-	bool game_over = false;
-
+	
+	int cells_status[51][51];
+	int cells_uncovered_value[51][51];
+	ButtonImage cells_image[51][51];
+	static const int CELL_WIDTH = 20;
 	static const int BOMB = -1;
 	enum cell_status {
 		COVERED,
 		OPENED,
 		FLAGGED
 	};
+	bool game_over = false;
+
+	SDL_Texture* IMG_COVERED;
+	SDL_Texture* IMG_COVERED_FLAGGED;
+	SDL_Texture* IMG_COVERED_MINE;
+	SDL_Texture* IMG_UNCOVERED_0;
+	SDL_Texture* IMG_UNCOVERED_1;
+	SDL_Texture* IMG_UNCOVERED_2;
+	SDL_Texture* IMG_UNCOVERED_3;
+	SDL_Texture* IMG_UNCOVERED_4;
+	SDL_Texture* IMG_UNCOVERED_5;
+	SDL_Texture* IMG_UNCOVERED_6;
+	SDL_Texture* IMG_UNCOVERED_7;
+	SDL_Texture* IMG_UNCOVERED_8;
+	SDL_Texture* IMG_UNCOVERED_EXPLODED;
+	SDL_Texture* IMG_UNCOVERED_INCORRECT_FLAGGED;
+
+	void setupCore();
+	void setupGUI();
 };
 
 #endif
