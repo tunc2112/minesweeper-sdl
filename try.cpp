@@ -89,14 +89,8 @@ void setup_playscreen(MainWindow& window) {
 	SDL_RenderPresent(window.renderer);
 }
 
-/*
-https://wiki.libsdl.org/SDL_CreateTextureFromSurface
-https://wiki.libsdl.org/SDL_CreateRGBSurface
-https://wiki.libsdl.org/SDL_CreateRGBSurfaceFrom 
-*/
-
 int main(int argc, char* argv[]) {
-	MainWindow window("SDL2 Test", 450, 450);
+	MainWindow window("Minesweeper Test", 450, 450);
 	// setup_homescreen(window);
 	setup_playscreen(window);
 	window.mainloop();

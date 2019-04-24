@@ -25,7 +25,7 @@ public:
 	SDL_Window* root = NULL;
 	SDL_Renderer* renderer = NULL;
 	// activity captureEvent;
-	void (*captureEvent)(SDL_Event& e);
+	void (*captureEvent)(SDL_Event& e) = NULL;
 
 	MainWindow(std::string window_title="", int width=400, int height=300);
 	~MainWindow();
@@ -133,6 +133,7 @@ public:
 	void setup();
 	void toggleFlag(int r, int c);
 	void openCell(int r, int c);
+	void openABomb(int r, int c);
 	void view(bool open_all=false);
 	void openCellsFrom(int r, int c);
 	void captureEvent(SDL_Event& event);
@@ -148,7 +149,7 @@ private:
 	int cells_status[51][51];
 	int cells_uncovered_value[51][51];
 	ButtonImage cells_image[51][51];
-	static const int CELL_WIDTH = 20;
+	static const int CELL_WIDTH = 25;
 	static const int BOMB = -1;
 	enum cell_status {
 		COVERED,

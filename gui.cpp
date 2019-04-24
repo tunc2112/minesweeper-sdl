@@ -36,6 +36,8 @@ MainWindow::MainWindow(std::string window_title, int width, int height) {
 	renderer = SDL_CreateRenderer(root, -1, SDL_RENDERER_ACCELERATED);
 
 	SDL_SetRenderDrawBlendMode(renderer, SDL_BLENDMODE_BLEND);
+
+	captureEvent = NULL;
 }
 
 MainWindow::~MainWindow() {
@@ -64,7 +66,8 @@ void MainWindow::mainloop() {
 			} else if (event.type == SDL_WINDOWEVENT) {
 			} else if (event.type == SDL_MOUSEBUTTONDOWN) {
 			}
-			captureEvent(event);
+			if (captureEvent != NULL)
+				captureEvent(event);
 			SDL_Delay(16);
 		}
 	}
@@ -405,6 +408,13 @@ void MinesweeperGUI::openCell(int r, int c) {
 	}
 }
 
+void MinesweeperGUI::openABomb(int r, int c) {
+	cells_status[r][c] = OPENED;
+	cells_image[r][c].setBackground(IMG_UNCOVERED_EXPLODED);
+	MinesweeperGUI::view(true);
+	game_over = true;
+}
+
 void MinesweeperGUI::view(bool open_all) {
 	for (int r = 0; r < height; r++)
 		for (int c = 0; c < width; c++) {
@@ -422,10 +432,7 @@ void MinesweeperGUI::view(bool open_all) {
 
 void MinesweeperGUI::openCellsFrom(int r, int c) {
 	if (cells_uncovered_value[r][c] == BOMB) {
-		cells_status[r][c] = OPENED;
-		cells_image[r][c].setBackground(IMG_UNCOVERED_EXPLODED);
-		MinesweeperGUI::view(true);
-		game_over = true;
+		MinesweeperGUI::openABomb(r, c);
 		return;
 	}
 	MinesweeperGUI::openCell(r, c);
@@ -459,8 +466,8 @@ void MinesweeperGUI::captureEvent(SDL_Event& event) {
 				else if (mouse_event.button == SDL_BUTTON_MIDDLE) {
 					if (cells_status[r][c] == OPENED) {
 						int count_adjacent_flags = 0;
-						for (int adj_r = max(0, r - 1); adj_r <= min(r + 1, height-1); adj_r++) // always in range [0, height)
-							for (int adj_c = max(0, c - 1); adj_c <= min(c + 1, width-1); adj_c++) // always in range [0, width)
+						for (int adj_r = max(0, r - 1); adj_r <= min(r + 1, height-1); adj_r++)
+							for (int adj_c = max(0, c - 1); adj_c <= min(c + 1, width-1); adj_c++)
 							{
 								if (cells_status[adj_r][adj_c] == FLAGGED)
 									count_adjacent_flags++;
@@ -469,8 +476,13 @@ void MinesweeperGUI::captureEvent(SDL_Event& event) {
 						if (cells_uncovered_value[r][c] == count_adjacent_flags) {
 							for (int adj_r = max(0, r - 1); adj_r <= min(r + 1, height-1); adj_r++)
 								for (int adj_c = max(0, c - 1); adj_c <= min(c + 1, width-1); adj_c++) {
-									if (cells_status[adj_r][adj_c] == COVERED)
+									if (cells_status[adj_r][adj_c] == COVERED) {
+										if (cells_uncovered_value[adj_r][adj_c] == BOMB) {
+											MinesweeperGUI::openABomb(adj_r, adj_c);
+											return;
+										}
 										MinesweeperGUI::openCellsFrom(adj_r, adj_c);
+									}
 								}
 						}
 					}
