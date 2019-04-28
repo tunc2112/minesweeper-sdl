@@ -32,7 +32,7 @@ private:
 	int cells_status[51][51];
 	int cells_uncovered_value[51][51];
 	ButtonImage cells_image[51][51];
-	static const int CELL_WIDTH = 25;
+	static const int CELL_WIDTH = 24;
 	static const int BOMB = -1;
 	enum cell_status {
 		COVERED,

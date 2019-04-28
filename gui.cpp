@@ -40,8 +40,6 @@ void MainWindow::close() {
 
 	SDL_DestroyRenderer(renderer);
 	SDL_DestroyWindow(root);
-	renderer = NULL;
-	root = NULL;
 }
 
 void MainWindow::mainloop() {

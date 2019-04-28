@@ -236,61 +236,62 @@ void MinesweeperGUI::captureEvent(SDL_Event& event) {
 
 		SDL_MouseButtonEvent mouse_event = event.button;
 
-		if (face_btn.isXYInside(mouse_x, mouse_y)) { // click on button
-			// std::cout << "inside my face...\n";
-			if (event.type == SDL_MOUSEBUTTONDOWN) {
-				face_btn.setBackground(IMG_FACE[1]);
-			} else if (event.type == SDL_MOUSEBUTTONUP) {
-				face_btn.setBackground(IMG_FACE[0]);
-				// std::cout << "clicked on my face...\n";
-				if (mouse_event.button == SDL_BUTTON_LEFT) {
-					// create a new game
+		if (face_btn.isXYInside(mouse_x, mouse_y)) {
+			if (mouse_event.button == SDL_BUTTON_LEFT) {
+				if (event.type == SDL_MOUSEBUTTONDOWN)
+					face_btn.setBackground(IMG_FACE[1]);
+				else if (event.type == SDL_MOUSEBUTTONUP)
 					this->setup();
-				}
 			}
-		} else if (!is_game_over) {
-			if (is_mouse_inside_gamefield) {
-				if (event.type == SDL_MOUSEBUTTONDOWN) {
-					if (mouse_event.button != SDL_BUTTON_RIGHT)
-						face_btn.setBackground(IMG_FACE[2]);
-				}
-				else if (event.type == SDL_MOUSEBUTTONUP) {
-					face_btn.setBackground(IMG_FACE[0]);
+		} else {
+			if (is_game_over) {
+				face_btn.setBackground(IMG_FACE[3]);
+			} else {
+				if (is_mouse_inside_gamefield) {
+					if (event.type == SDL_MOUSEBUTTONDOWN) {
+						if (mouse_event.button != SDL_BUTTON_RIGHT)
+							face_btn.setBackground(IMG_FACE[2]);
+					} else if (event.type == SDL_MOUSEBUTTONUP) {
+						face_btn.setBackground(IMG_FACE[0]);
 
-					int r = (mouse_y - packed_y) / CELL_WIDTH;
-					int c = (mouse_x - packed_x) / CELL_WIDTH;
-				
-					if (mouse_event.button == SDL_BUTTON_LEFT) {
-						this->openCellsFrom(r, c);
-					}
-					else if (mouse_event.button == SDL_BUTTON_MIDDLE) {
-						if (cells_status[r][c] == OPENED) {
-							int count_adjacent_flags = 0;
-							for (int adj_r = max(0, r - 1); adj_r <= min(r + 1, height-1); adj_r++)
-								for (int adj_c = max(0, c - 1); adj_c <= min(c + 1, width-1); adj_c++) {
-									if (cells_status[adj_r][adj_c] == FLAGGED)
-										count_adjacent_flags++;
-								}
-
-							if (cells_uncovered_value[r][c] == count_adjacent_flags) {
+						int r = (mouse_y - packed_y) / CELL_WIDTH;
+						int c = (mouse_x - packed_x) / CELL_WIDTH;
+					
+						if (mouse_event.button == SDL_BUTTON_LEFT) {
+							if (cells_status[r][c] == COVERED)
+								this->openCellsFrom(r, c);
+						}
+						else if (mouse_event.button == SDL_BUTTON_MIDDLE) {
+							if (cells_status[r][c] == OPENED) {
+								int count_adjacent_flags = 0;
 								for (int adj_r = max(0, r - 1); adj_r <= min(r + 1, height-1); adj_r++)
 									for (int adj_c = max(0, c - 1); adj_c <= min(c + 1, width-1); adj_c++) {
-										if (cells_status[adj_r][adj_c] == COVERED) {
-											if (cells_uncovered_value[adj_r][adj_c] == BOMB) {
-												this->openABomb(adj_r, adj_c);
-												this->gameOver();
-											}
-											this->openCellsFrom(adj_r, adj_c);
-										}
+										if (cells_status[adj_r][adj_c] == FLAGGED)
+											count_adjacent_flags++;
 									}
+
+								if (cells_uncovered_value[r][c] == count_adjacent_flags) {
+									for (int adj_r = max(0, r - 1); adj_r <= min(r + 1, height-1); adj_r++)
+										for (int adj_c = max(0, c - 1); adj_c <= min(c + 1, width-1); adj_c++) {
+											if (cells_status[adj_r][adj_c] == COVERED) {
+												if (cells_uncovered_value[adj_r][adj_c] == BOMB) {
+													this->openABomb(adj_r, adj_c);
+													this->gameOver();
+												}
+												this->openCellsFrom(adj_r, adj_c);
+											}
+										}
+								}
 							}
 						}
+						else if (mouse_event.button == SDL_BUTTON_RIGHT) {
+							this->toggleFlag(r, c);
+						}
 					}
-					else if (mouse_event.button == SDL_BUTTON_RIGHT)
-						this->toggleFlag(r, c);
+				} else {
+					face_btn.setBackground(IMG_FACE[0]);
 				}
-			} else 
-				face_btn.setBackground(IMG_FACE[0]);
+			}
 		}
 	}
 }
