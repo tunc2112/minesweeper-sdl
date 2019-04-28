@@ -154,6 +154,10 @@ MIT License (c) 2019
 
 - https://gamedev.stackexchange.com/questions/72613/how-can-i-render-a-texture-to-the-screen-in-sdl2
 
+- https://www.stdio.vn/articles/draw-text-trong-sdl-308
+
+- https://stackoverflow.com/questions/22886500/how-to-render-text-in-sdl2/22889483
+
 ---
 
 ## Related links

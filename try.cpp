@@ -3,6 +3,7 @@
 #include <iostream>
 #include <string>
 #include "gui.h"
+#include "core.h"
 
 Button btn_list[5][5];
 ButtonImage bi1;
@@ -27,15 +28,15 @@ void capture_game_event(SDL_Event& e) {
 		game->captureEvent(e);
 }
 
-void print(SDL_MouseButtonEvent &b) {
-	int x = b.x, y = b.y;
+void print(SDL_MouseButtonEvent* b) {
+	int x = b->x, y = b->y;
 	std::cout << x / 50 << " " << y / 50 << std::endl;
 	// int mouse_state = btn_list[y / 50][x / 50].getMouseState();
 	// // std::cout << mouse_state << std::endl;
 	// btn_list[y / 50][x / 50].setColorByMouseState(mouse_state);
 }
 
-void reverse_flagged_state(SDL_MouseButtonEvent &b) {
+void reverse_flagged_state(SDL_MouseButtonEvent* b) {
 	if (clicked)
 		return;
 
@@ -47,7 +48,7 @@ void reverse_flagged_state(SDL_MouseButtonEvent &b) {
 	}
 }
 
-void open_button(SDL_MouseButtonEvent& b) {
+void open_button(SDL_MouseButtonEvent* b) {
 	if (!clicked) {
 		std::cout << "boumb!" << std::endl;
 		clicked = true;
@@ -84,7 +85,6 @@ void setup_playscreen(MainWindow& window) {
 	SDL_RenderClear(window.renderer); // clear window
 	game = new MinesweeperGUI(&window, 0, 50, "intermediate");
 	game->setup();
-	game->view(false);
 	window.captureEvent = capture_game_event;
 	SDL_RenderPresent(window.renderer);
 }
