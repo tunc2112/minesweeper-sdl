@@ -6,7 +6,7 @@
 
 Button btn_list[62][71];
 ButtonImage bi1;
-int easy1, medium1, hard1, custom1;
+int check_easy_inside, check_medium_inside, check_hard_inside, check_custom_inside;
 bool flagged = false, clicked = false;
 SDL_Texture *covered_img, *flagged_img, *clicked_img;
 SDL_Rect background;
@@ -116,72 +116,72 @@ void capture_event1(SDL_Event& e) {
 	SDL_GetMouseState(&x, &y);
 	if(x >= 200 && y >= 140 && x <= 200 + 210 && y <= 140 + 100)
 	{
-		if(easy1 == 0)
+		if(check_easy_inside == 0)
 		{
-			easy1 = 1;
+			check_easy_inside = 1;
 			Easy = IMG_LoadTexture(window.renderer, "img_test/easy2.png");
 			draw_everything(window);
 		}
 	}
 	else
 	{
-		if(easy1 == 1)
+		if(check_easy_inside == 1)
 		{
-			easy1 = 0;
+			check_easy_inside = 0;
 			Easy = IMG_LoadTexture(window.renderer, "img_test/easy1.png");
 			draw_everything(window);
 		}
 	}
 	if(x >= 160 && y >= 290 && x <= 160 + 290 && y <= 290 + 100)
 	{
-		if(medium1 == 0)
+		if(check_medium_inside == 0)
 		{
-			medium1 = 1;
+			check_medium_inside = 1;
 			Medium = IMG_LoadTexture(window.renderer, "img_test/medium2.png");
 			draw_everything(window);
 		}
 	}
 	else
 	{
-		if(medium1 == 1)
+		if(check_medium_inside == 1)
 		{
-			medium1 = 0;
+			check_medium_inside = 0;
 			Medium = IMG_LoadTexture(window.renderer, "img_test/medium1.png");
 			draw_everything(window);
 		}
 	}
 	if(x >= 200 && y >= 440 && x <= 200 + 210 && y <= 440 + 100)
 	{
-		if(hard1 == 0)
+		if(check_hard_inside == 0)
 		{
-			hard1 = 1;
+			check_hard_inside = 1;
 			Hard = IMG_LoadTexture(window.renderer, "img_test/hard2.png");
 			draw_everything(window);
 		}
 	}
 	else
 	{
-		if(hard1 == 1)
+		if(check_hard_inside == 1)
 		{
-			hard1 = 0;
+			check_hard_inside = 0;
 			Hard = IMG_LoadTexture(window.renderer, "img_test/hard1.png");
 			draw_everything(window);
 		}
 	}
 	if(x >= 170 && y >= 590 && x <= 170 + 270 && y <= 590 + 100)
 	{
-		if(custom1 == 0)
+		if(check_custom_inside == 0)
 		{
-			custom1 = 1;
+			check_custom_inside = 1;
 			Custom = IMG_LoadTexture(window.renderer, "img_test/custom2.png");
 			draw_everything(window);
 		}
 	}
 	else
 	{
-		if(custom1 == 1)
+		if(check_custom_inside == 1)
 		{
-			custom1 = 0;
+			check_custom_inside = 0;
 			Custom = IMG_LoadTexture(window.renderer, "img_test/custom1.png");
 			draw_everything(window);
 		}
