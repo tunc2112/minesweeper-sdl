@@ -15,17 +15,17 @@ MinesweeperGUI::MinesweeperGUI() {}
 MinesweeperGUI::MinesweeperGUI(MainWindow* win, int px, int py, std::string level) {
 	parent = win;
 	packed_x = px;
-	packed_y = py;
+	packed_y = py + FACE_WIDTH; // packed_y = place in Oy of game filed
 
-	if (level == "beginner") {
+	if (level == "easy") {
 		width = 8;
 		height = 8;
 		bombs = 10;
-	} else if (level == "intermediate") {
+	} else if (level == "medium") {
 		width = 16;
 		height = 16;
 		bombs = 40;
-	} else if (level == "expert") {
+	} else if (level == "hard") {
 		width = 30;
 		height = 16;
 		bombs = 99;
@@ -35,7 +35,7 @@ MinesweeperGUI::MinesweeperGUI(MainWindow* win, int px, int py, std::string leve
 MinesweeperGUI::MinesweeperGUI(MainWindow* win, int px, int py, int _w, int _h, int _bombs) {
 	parent = win;
 	packed_x = px;
-	packed_y = py;
+	packed_y = py + FACE_WIDTH; // packed_y = place in Oy of game filed
 
 	width = _w;
 	height = _h;
@@ -71,6 +71,7 @@ void MinesweeperGUI::setup() {
 }
 
 void MinesweeperGUI::setupCore() {
+	count_opened_cells = 0;
 	is_game_over = false;
 
 	srand(time(NULL));
@@ -104,6 +105,16 @@ void MinesweeperGUI::setupCore() {
 }
 
 void MinesweeperGUI::setupGUI() {
+	// resize window
+	int gameGUI_height = CELL_WIDTH * height;
+	int gameGUI_width = CELL_WIDTH * width;
+	parent->setWindowSize(packed_x + gameGUI_width, packed_y + gameGUI_height);
+	parent->center();
+	// set background
+	SDL_SetRenderDrawColor(parent->renderer, 192, 192, 192, 255);
+	// SDL_SetRenderDrawColor(parent->renderer, 0, 63, 127, 255);
+	SDL_RenderClear(parent->renderer); // clear window
+	
 	IMG_COVERED = IMG_LoadTexture(parent->renderer, "img/covered.png");
 	IMG_COVERED_FLAGGED = IMG_LoadTexture(parent->renderer, "img/covered_flagged.png");
 	IMG_COVERED_MINE = IMG_LoadTexture(parent->renderer, "img/covered_mine.png");
@@ -125,9 +136,20 @@ void MinesweeperGUI::setupGUI() {
 	IMG_FACE[3] = IMG_LoadTexture(parent->renderer, "img/face_3.png");
 	IMG_FACE[4] = IMG_LoadTexture(parent->renderer, "img/face_4.png");
 
-	// int gameGUI_height = CELL_WIDTH * height;
-	int gameGUI_width = CELL_WIDTH * width;
-	face_btn = ButtonImage(parent, IMG_FACE[0], 50, 50, (gameGUI_width - 50) / 2, 0);
+	SDL_Texture* IMG_HOME = IMG_LoadTexture(parent->renderer, "img/home.png");
+	ButtonImage btn_home = ButtonImage(parent, IMG_HOME, 48, 48, 0, 0);
+	btn_home.drawButton();
+
+	SDL_Texture* IMG_MINE = IMG_LoadTexture(parent->renderer, "img/mine.png");
+	SDL_Rect RECT_MINE = {50, 0, 30, 30};
+	SDL_RenderCopy(parent->renderer, IMG_MINE, NULL, &RECT_MINE);
+
+	SDL_Texture* IMG_WATCH = IMG_LoadTexture(parent->renderer, "img/stopwatch.png");
+	SDL_Rect RECT_WATCH = {120, 0, 30, 30};
+	SDL_RenderCopy(parent->renderer, IMG_WATCH, NULL, &RECT_WATCH);
+
+	face_btn = ButtonImage(parent, IMG_FACE[0], FACE_WIDTH, FACE_WIDTH,
+		                   (gameGUI_width - FACE_WIDTH) / 2, packed_y - FACE_WIDTH);
 	face_btn.drawButton();
 
 	for (int r = 0; r < height; r++)
@@ -159,6 +181,8 @@ void MinesweeperGUI::toggleFlag(int r, int c) {
 
 void MinesweeperGUI::openCell(int r, int c) {
 	if (cells_status[r][c] == COVERED) {
+		count_opened_cells++;
+
 		cells_status[r][c] = OPENED;
 		if (cells_uncovered_value[r][c] == BOMB) {
 			cells_image[r][c].setBackground(IMG_COVERED_MINE);
@@ -194,7 +218,9 @@ void MinesweeperGUI::openCellsFrom(int r, int c) {
 		this->gameOver();
 		return;
 	}
-	this->openCell(r, c);
+	if (cells_status[r][c] == COVERED) {
+		this->openCell(r, c);
+	}
 
 	if (cells_uncovered_value[r][c] == 0) {
 		for (int adj_r = max(0, r - 1); adj_r <= min(r + 1, height-1); adj_r++) // always in range [0, height)
@@ -246,6 +272,8 @@ void MinesweeperGUI::captureEvent(SDL_Event& event) {
 		} else {
 			if (is_game_over) {
 				face_btn.setBackground(IMG_FACE[3]);
+			} else if (count_opened_cells == height * width - bombs) { // win game
+				face_btn.setBackground(IMG_FACE[4]);
 			} else {
 				if (is_mouse_inside_gamefield) {
 					if (event.type == SDL_MOUSEBUTTONDOWN) {
@@ -260,6 +288,9 @@ void MinesweeperGUI::captureEvent(SDL_Event& event) {
 						if (mouse_event.button == SDL_BUTTON_LEFT) {
 							if (cells_status[r][c] == COVERED)
 								this->openCellsFrom(r, c);
+							if (count_opened_cells == height * width - bombs) { // win game
+								face_btn.setBackground(IMG_FACE[4]);
+							}
 						}
 						else if (mouse_event.button == SDL_BUTTON_MIDDLE) {
 							if (cells_status[r][c] == OPENED) {
@@ -281,6 +312,9 @@ void MinesweeperGUI::captureEvent(SDL_Event& event) {
 												this->openCellsFrom(adj_r, adj_c);
 											}
 										}
+									if (count_opened_cells == height * width - bombs) { // win game
+										face_btn.setBackground(IMG_FACE[4]);
+									}
 								}
 							}
 						}

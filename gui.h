@@ -29,10 +29,11 @@ public:
 
 	MainWindow(std::string window_title="", int width=400, int height=300);
 	~MainWindow();
+	void setWindowSize(int width, int height);
+	void center();
 	/*
 	const int NONE = -1;
 	void setWindowTitle(std::string new_title);
-	void setWindowSize(int width=NONE, int height=NONE);
 	void config(std::string new_window_title="", int new_width=NONE, int new_height=NONE);
 	*/
 	void mainloop();

@@ -21,7 +21,7 @@ RGBA::RGBA(const RGBA& c) {
 }
 
 MainWindow::MainWindow(std::string window_title, int width, int height) {
-	root = SDL_CreateWindow(window_title.c_str(), SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED,
+	root = SDL_CreateWindow(window_title.c_str(), SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED,
 		width, height, SDL_WINDOW_SHOWN);
 
 	renderer = SDL_CreateRenderer(root, -1, SDL_RENDERER_ACCELERATED);
@@ -32,6 +32,14 @@ MainWindow::MainWindow(std::string window_title, int width, int height) {
 MainWindow::~MainWindow() {
 	renderer = NULL;
 	root = NULL;
+}
+
+void MainWindow::setWindowSize(int width, int height) {
+	SDL_SetWindowSize(root, width, height);
+}
+
+void MainWindow::center() {
+	SDL_SetWindowPosition(root, SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED);
 }
 
 void MainWindow::close() {
