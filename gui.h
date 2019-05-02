@@ -2,8 +2,9 @@
 #define _GUI_H
 
 #include <SDL2/SDL.h>
+#include <SDL2/SDL_image.h>
+#include <cassert>
 #include <string>
-#include "core.h"
 
 class RGBA {
 public:
@@ -16,28 +17,32 @@ public:
 	RGBA(const RGBA& c);
 };
 
+typedef void (*command)(SDL_MouseButtonEvent* e);
+typedef void (*activity)(SDL_Event& e);
+
 class MainWindow {
 public:
 	SDL_Window* root = NULL;
 	SDL_Renderer* renderer = NULL;
+	// activity captureEvent;
+	void (*captureEvent)(SDL_Event& e) = NULL;
 
-	MainWindow(const char* window_title="", int width=400, int height=300);
+	MainWindow(std::string window_title="", int width=400, int height=300);
 	~MainWindow();
+	void setWindowSize(int width, int height);
+	void center();
 	/*
 	const int NONE = -1;
-	void setWindowTitle(const char* new_title);
-	void setWindowSize(int width=NONE, int height=NONE);
-	void config(const char* new_window_title="", int new_width=NONE, int new_height=NONE);
+	void setWindowTitle(std::string new_title);
+	void config(std::string new_window_title="", int new_width=NONE, int new_height=NONE);
 	*/
-	void setup_inner_elements();
 	void mainloop();
-	void main_activity(SDL_Event& e);
 	void close();
 };
 
-typedef void (*command)(SDL_MouseButtonEvent& e);
-
 enum MOUSE_STATE {
+	DEFAULT,
+	CLICKED,
 	MOUSE_OUT,
 	MOUSE_OVER,
 	MOUSE_DOWN,
@@ -45,44 +50,83 @@ enum MOUSE_STATE {
 	TOTAL_MOUSE_STATES
 };
 
-class Button {
+class Image {
 public:
-	Button();
-	Button(MainWindow* win, int w, int h, const RGBA& c, int x=0, int y=0);
-	~Button();
-	int getMouseState();
-	void setChangingStateColor(int state, const RGBA& c);
-	void setColorByMouseState(int state);
-	void drawButton();
-	void bindCommand(command f, std::string clicked_mouse="left");
-	void runCommand(SDL_MouseButtonEvent& b, std::string clicked_mouse="left");
-	void handleEvent(SDL_Event &e);
+	Image(MainWindow &win, std::string img_dir) {
+		texture = IMG_LoadTexture(win.renderer, img_dir.c_str());
+		assert(texture != NULL);
+	}
 
+	Image(SDL_Texture* img_texture) {
+		texture = img_texture;
+		assert(texture != NULL);
+	}
+
+	~Image() {
+		SDL_DestroyTexture(texture);
+	}
+
+	void view(MainWindow &win, SDL_Rect* dest_rect) {
+		assert(win.renderer != renderer);
+		SDL_RenderCopy(renderer, texture, NULL, dest_rect);
+		SDL_RenderPresent(win.renderer);
+	}
 private:
+	SDL_Renderer* renderer = NULL;
+	SDL_Texture* texture = NULL;
+};
+
+class _Button {
+public:
+	_Button();
+	~_Button() {};
+	virtual void drawButton() {};
+	int getMouseState();
+	void disable();
+	void enable();
+	bool isXYInside(int x, int y);
+	virtual void setBackgroundByMouseState(int state) {};
+	void bindCommand(command f, std::string clicked_mouse="left");
+	void runCommand(SDL_MouseButtonEvent* b, std::string clicked_mouse="left");
+	void handleEvent(SDL_Event& e);
+protected:
 	MainWindow* parent;
 	int packed_x;
 	int packed_y;
 	int width;
 	int height;
+	bool is_active = true;
 	SDL_Rect btn_rect;
-	RGBA color[TOTAL_MOUSE_STATES];
 	int mouse_state;
-
 	command left_click_command = NULL;
 	command middle_click_command = NULL;
 	command right_click_command = NULL;
 };
 
-class BombFieldGUI {
+class Button: public _Button {
 public:
-	BombFieldGUI(MainWindow* win, int width, int height, int bombs);
-	~BombFieldGUI();
-	void showAllCells();
-	void openCells(int r, int c);
-
+	Button();
+	Button(MainWindow* win, const RGBA& c, int w, int h, int x=0, int y=0);
+	~Button();
+	void drawButton();
+	void setChangingStateBackground(int state, const RGBA& c);
+	void setBackgroundByMouseState(int state);
 private:
-	MainWindow* parent;
-	MinesweeperCore game_core;
+	RGBA color[TOTAL_MOUSE_STATES];
+};
+
+class ButtonImage: public _Button {
+public:
+	ButtonImage();
+	ButtonImage(MainWindow* win, std::string img_dir, int w, int h, int x=0, int y=0);
+	ButtonImage(MainWindow* win, SDL_Texture* img, int w, int h, int x=0, int y=0);
+	~ButtonImage();
+	void drawButton();
+	// void setChangingStateBackground(int state, SDL_Texture* img);
+	// void setBackgroundByMouseState(int state);
+	void setBackground(SDL_Texture* img);
+private:
+	SDL_Texture* bg_image[TOTAL_MOUSE_STATES];
 };
 
 #endif

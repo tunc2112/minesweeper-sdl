@@ -2,29 +2,65 @@
 #define _CORE_H
 
 #include <string>
+#include "gui.h"
 
-class MinesweeperCore {
+class MinesweeperGUI {
 public:
-	MinesweeperCore(std::string level="beginner");
-	MinesweeperCore(int _w, int _h, int _bombs);
-	~MinesweeperCore();
+	MinesweeperGUI();
+	MinesweeperGUI(MainWindow* win, int px, int py, std::string level="easy");
+	MinesweeperGUI(MainWindow* win, int px, int py, int _w, int _h, int _bombs);
+	~MinesweeperGUI();
 	void setup();
-	void updateStatus(int r, int c);
+	// void view();
+	void toggleFlag(int r, int c);
+	void openCell(int r, int c);
+	void openABomb(int r, int c);
+	void openCellsFrom(int r, int c);
+	void gameOver();
+	void captureEvent(SDL_Event& event);
 
 private:
+	MainWindow* parent;
+	int packed_x;
+	int packed_y;
 	int width;
 	int height;
 	int bombs;
-	int status[101][101];
-	int count_bombs[101][101];
-	bool game_over = false;
+	
+	ButtonImage face_btn;
 
+	int cells_status[51][51];
+	int cells_uncovered_value[51][51];
+	ButtonImage cells_image[51][51];
+	static const int CELL_WIDTH = 24;
+	static const int FACE_WIDTH = (CELL_WIDTH * 26) / 16;
 	static const int BOMB = -1;
 	enum cell_status {
 		COVERED,
 		OPENED,
 		FLAGGED
 	};
+	int count_opened_cells = 0;
+	bool is_game_over = false;
+
+	SDL_Texture* IMG_COVERED;
+	SDL_Texture* IMG_COVERED_FLAGGED;
+	SDL_Texture* IMG_COVERED_MINE;
+	SDL_Texture* IMG_UNCOVERED_0;
+	SDL_Texture* IMG_UNCOVERED_1;
+	SDL_Texture* IMG_UNCOVERED_2;
+	SDL_Texture* IMG_UNCOVERED_3;
+	SDL_Texture* IMG_UNCOVERED_4;
+	SDL_Texture* IMG_UNCOVERED_5;
+	SDL_Texture* IMG_UNCOVERED_6;
+	SDL_Texture* IMG_UNCOVERED_7;
+	SDL_Texture* IMG_UNCOVERED_8;
+	SDL_Texture* IMG_UNCOVERED_EXPLODED;
+	SDL_Texture* IMG_UNCOVERED_INCORRECT_FLAGGED;
+	SDL_Texture* IMG_FACE[5];
+
+	void setupCore();
+	void setupGUI();
 };
 
 #endif
