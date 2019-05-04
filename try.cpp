@@ -4,10 +4,11 @@
 #include <string>
 #include "gui.h"
 #include "core.h"
+#include "label.h"
 
 Button btn_list[62][71];
 ButtonImage bi1;
-int check_easy_inside, check_medium_inside, check_hard_inside, check_custom_inside;
+int check_easy_inside, check_medium_inside, check_hard_inside, check_custom_inside, height_custom, width_custom, booms_custom;
 bool flagged = false, clicked = false;
 MainWindow window("Minesweeper Test", 620, 710);
 SDL_Texture *covered_img, *flagged_img, *clicked_img;
@@ -17,12 +18,16 @@ SDL_Rect easy;
 SDL_Rect medium;
 SDL_Rect hard;
 SDL_Rect custom;
+SDL_Rect tri1;
+SDL_Rect tri2;
 SDL_Texture* Background = IMG_LoadTexture(window.renderer, "img_test/grid.jpg");
 SDL_Texture* Menu = IMG_LoadTexture(window.renderer, "img_test/bomb.png");
 SDL_Texture* Easy = IMG_LoadTexture(window.renderer, "img_test/easy1.png");
 SDL_Texture* Medium = IMG_LoadTexture(window.renderer, "img_test/medium1.png");
 SDL_Texture* Hard = IMG_LoadTexture(window.renderer, "img_test/hard1.png");
 SDL_Texture* Custom = IMG_LoadTexture(window.renderer, "img_test/custom1.png");
+SDL_Texture* Tri1 = IMG_LoadTexture(window.renderer, "img_test/triangle1.png");
+SDL_Texture* Tri2 = IMG_LoadTexture(window.renderer, "img_test/triangle2.png");
 MinesweeperGUI* game = NULL;
 
 void capture_event(SDL_Event& e) {
@@ -40,34 +45,6 @@ void capture_game_event(SDL_Event& e) {
 
 	if (game != NULL)
 		game->captureEvent(e);
-}
-
-void print(SDL_MouseButtonEvent &b) {
-	int x = b.x, y = b.y;
-	std::cout << x / 10 << " " << y / 10 << std::endl;
-	// int mouse_state = btn_list[y / 50][x / 50].getMouseState();
-	// // std::cout << mouse_state << std::endl;
-	// btn_list[y / 50][x / 50].setColorByMouseState(mouse_state);
-}
-
-void reverse_flagged_state(SDL_MouseButtonEvent &b) {
-	if (clicked)
-		return;
-
-	flagged = !flagged;
-	if (flagged) {
-		bi1.setBackground(flagged_img);
-	} else {
-		bi1.setBackground(covered_img);
-	}
-}
-
-void open_button(SDL_MouseButtonEvent& b) {
-	if (!clicked) {
-		std::cout << "boumb!" << std::endl;
-		clicked = true;
-		bi1.setBackground(clicked_img);
-	}
 }
 
 void draw_everything(MainWindow &window)
@@ -98,8 +75,6 @@ void draw_everything(MainWindow &window)
 	custom.y = 590;
 	custom.w = 270;
 	custom.h = 100;
-
-	SDL_SetRenderDrawColor(window.renderer, 255, 0, 0, 255);
 	SDL_RenderClear(window.renderer);
 	SDL_RenderCopy(window.renderer, Background, NULL, &background);
 	SDL_RenderCopy(window.renderer, Menu, NULL, &menu);
@@ -107,6 +82,12 @@ void draw_everything(MainWindow &window)
 	SDL_RenderCopy(window.renderer, Medium, NULL, &medium);
 	SDL_RenderCopy(window.renderer, Hard, NULL, &hard);
 	SDL_RenderCopy(window.renderer, Custom, NULL, &custom);
+	SDL_RenderPresent(window.renderer);
+}
+
+void draw_one(SDL_Rect rect, SDL_Texture* texture)
+{
+	SDL_RenderCopy(window.renderer, texture, NULL, &rect);
 	SDL_RenderPresent(window.renderer);
 }
 
@@ -119,21 +100,66 @@ void setup_playscreen(MainWindow& window) {
 	SDL_RenderPresent(window.renderer);
 }
 
-void capture_setup_size(SDL_Event& e)
+bool check_inside_right(int px, int py, int x, int y)
+{
+	if(y > py + 30)
+		y = py + 60 - y + py;
+	int Y = y - py;
+	int X = 2 * Y + px;
+	return (x <= X);
+}
+
+bool check_inside_left(int px, int py, int x, int y)
+{
+	if(y > py + 30)
+		y = py + 60 - y + py;
+	int Y = y - py;
+	int X = px + 60 - 2 * Y;
+	return (x >= X);
+}
+
+void capture_event_custom(SDL_Event& e)
 {
 	int x, y;
 	SDL_GetMouseState(&x, &y);
+	SDL_Color bg = {255, 255, 255, 255}, fg = {0, 0, 0, 255};
+	Label* height_cnt = new Label(&window, std::to_string(height_custom) , "font/consolas.ttf", 50, fg, bg, 100, -1, 280, 90);
+	Label* width_cnt = new Label(&window, std::to_string(width_custom) , "font/consolas.ttf", 50, fg, bg, 100, -1, 280, 240);
+	Label* booms_cnt = new Label(&window, std::to_string(booms_custom) , "font/consolas.ttf", 50, fg, bg, 100, -1, 280, 390);
+	if(e.type == SDL_MOUSEBUTTONDOWN)
+	{
+		if(x >= 460 && y >= 80 && x <= 520 && y <= 140 && check_inside_right(460, 80, x, y))
+		{
+			++height_custom;
+		}
+		if(x >= 100 && y >= 80 && x <= 160 && y <= 140 && check_inside_left(100, 80, x, y))
+		{
+			--height_custom;
+		}
+		if(x >= 460 && y >= 230 && x <= 520 && y <= 290 && check_inside_right(460, 230, x, y))
+		{
+			++width_custom;
+		}
+		if(x >= 100 && y >= 230 && x <= 160 && y <= 290 && check_inside_left(100, 230, x, y))
+		{
+			--width_custom;
+		}
+		if(x >= 460 && y >= 380 && x <= 520 && y <= 440 && check_inside_right(460, 380, x, y))
+		{
+			++booms_custom;
+		}
+		if(x >= 100 && y >= 380 && x <= 160 && y <= 440 && check_inside_left(100, 380, x, y))
+		{
+			--booms_custom;
+		}
+	}
+	height_cnt->show();
+	width_cnt->show();
+	booms_cnt->show();
 }
 
-void setup_size(MainWindow& window) // cai nay la sau khi an custom no ra va chua viet xong
+void capture_event_menu(SDL_Event& e) 
 {
-	SDL_RenderClear(window.renderer);
-	SDL_SetRenderDrawColor(window.renderer, 0, 0, 0, 0xFF);
-	window.captureEvent = capture_setup_size;
-	SDL_RenderPresent(window.renderer);
-}
-
-void capture_event_menu(SDL_Event& e) {
 	int x, y;
 	SDL_GetMouseState(&x, &y);
 	if(x >= 200 && y >= 140 && x <= 200 + 210 && y <= 140 + 100)
@@ -222,7 +248,48 @@ void capture_event_menu(SDL_Event& e) {
 			printf("Hard\n");
 		if(x >= 170 && y >= 590 && x <= 170 + 270 && y <= 590 + 100)
 		{
-			setup_size(window);
+			SDL_Texture* Background = IMG_LoadTexture(window.renderer, "img_test/white.png");
+			SDL_RenderClear(window.renderer);
+			SDL_RenderCopy(window.renderer, Background, NULL, &background);
+			SDL_RenderPresent(window.renderer);
+			tri1.x = 100;
+			tri1.y = 80;
+			tri1.w = 60;
+			tri1.h = 60;
+			draw_one(tri1, Tri1);
+			tri2.x = 460;
+			tri2.y = 80;
+			tri2.w = 60;
+			tri2.h = 60;
+			draw_one(tri2, Tri2);
+			tri1.x = 100;
+			tri1.y = 230;
+			tri1.w = 60;
+			tri1.h = 60;
+			draw_one(tri1, Tri1);
+			tri2.x = 460;
+			tri2.y = 230;
+			tri2.w = 60;
+			tri2.h = 60;
+			draw_one(tri2, Tri2);
+			tri1.x = 100;
+			tri1.y = 380;
+			tri1.w = 60;
+			tri1.h = 60;
+			draw_one(tri1, Tri1);
+			tri2.x = 460;
+			tri2.y = 380;
+			tri2.w = 60;
+			tri2.h = 60;
+			draw_one(tri2, Tri2);
+			SDL_Color bg = {255, 255, 255, 255}, fg = {0, 0, 0, 255};
+			Label* height = new Label(&window, "height", "font/consolas.ttf", 26, fg, bg, 150, -1, 20, 20);
+			Label* width = new Label(&window, "width", "font/consolas.ttf", 26, fg, bg, 150, -1, 20, 20 + 150);		
+			Label* booms = new Label(&window, "booms", "font/consolas.ttf", 26, fg, bg, 150, -1, 20, 20 + 300);
+			height->show();
+			width->show();
+			booms->show();
+			window.captureEvent = capture_event_custom;
 		}
 	}
 }
@@ -255,6 +322,7 @@ void setup_homescreen(MainWindow& window) {
 }
 
 int main(int argc, char* argv[]) {
+	TTF_Init();
 	 setup_homescreen(window);
 	//setup_playscreen(window);
 	window.mainloop();
