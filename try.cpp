@@ -8,7 +8,7 @@
 
 Button btn_list[62][71];
 ButtonImage bi1;
-int check_easy_inside, check_medium_inside, check_hard_inside, check_custom_inside, check_next_inside, height_custom, width_custom, booms_custom;
+int check_easy_inside, check_medium_inside, check_hard_inside, check_custom_inside, check_next_inside, height_custom = 8, width_custom = 8, booms_custom = 10;
 bool flagged = false, clicked = false;
 MainWindow window("Minesweeper Test", 620, 710);
 SDL_Texture *covered_img, *flagged_img, *clicked_img;
