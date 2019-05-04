@@ -8,7 +8,7 @@
 
 Button btn_list[62][71];
 ButtonImage bi1;
-int check_easy_inside, check_medium_inside, check_hard_inside, check_custom_inside, height_custom, width_custom, booms_custom;
+int check_easy_inside, check_medium_inside, check_hard_inside, check_custom_inside, check_next_inside, height_custom, width_custom, booms_custom;
 bool flagged = false, clicked = false;
 MainWindow window("Minesweeper Test", 620, 710);
 SDL_Texture *covered_img, *flagged_img, *clicked_img;
@@ -20,6 +20,7 @@ SDL_Rect hard;
 SDL_Rect custom;
 SDL_Rect tri1;
 SDL_Rect tri2;
+SDL_Rect next;
 SDL_Texture* Background = IMG_LoadTexture(window.renderer, "img_test/grid.jpg");
 SDL_Texture* Menu = IMG_LoadTexture(window.renderer, "img_test/bomb.png");
 SDL_Texture* Easy = IMG_LoadTexture(window.renderer, "img_test/easy1.png");
@@ -28,6 +29,7 @@ SDL_Texture* Hard = IMG_LoadTexture(window.renderer, "img_test/hard1.png");
 SDL_Texture* Custom = IMG_LoadTexture(window.renderer, "img_test/custom1.png");
 SDL_Texture* Tri1 = IMG_LoadTexture(window.renderer, "img_test/triangle1.png");
 SDL_Texture* Tri2 = IMG_LoadTexture(window.renderer, "img_test/triangle2.png");
+SDL_Texture* Next = IMG_LoadTexture(window.renderer, "img_test/next1.png");
 MinesweeperGUI* game = NULL;
 
 void capture_event(SDL_Event& e) {
@@ -151,6 +153,32 @@ void capture_event_custom(SDL_Event& e)
 		if(x >= 100 && y >= 380 && x <= 160 && y <= 440 && check_inside_left(100, 380, x, y))
 		{
 			--booms_custom;
+		}
+		if(x >= 400 && y >= 550 && x <= 350 + 190 && y <= 550 + 80)
+		{
+			//vao game
+		}
+	}
+	if(x >= 400 && y >= 550 && x <= 350 + 190 && y <= 550 + 80)
+	{
+		if(check_next_inside == 0)
+		{
+			check_next_inside = 1;
+			Next = IMG_LoadTexture(window.renderer, "img_test/white.png");
+			draw_one(next, Next);
+			Next = IMG_LoadTexture(window.renderer, "img_test/next2.png");
+			draw_one(next, Next);
+		}
+	}
+	else
+	{
+		if(check_next_inside == 1)
+		{
+			check_next_inside = 0;
+			Next = IMG_LoadTexture(window.renderer, "img_test/white.png");
+			draw_one(next, Next);
+			Next = IMG_LoadTexture(window.renderer, "img_test/next1.png");
+			draw_one(next, Next);
 		}
 	}
 	height_cnt->show();
@@ -282,6 +310,11 @@ void capture_event_menu(SDL_Event& e)
 			tri2.w = 60;
 			tri2.h = 60;
 			draw_one(tri2, Tri2);
+			next.x = 400;
+			next.y = 550;
+			next.w = 190;
+			next.h = 80;
+			draw_one(next, Next);
 			SDL_Color bg = {255, 255, 255, 255}, fg = {0, 0, 0, 255};
 			Label* height = new Label(&window, "height", "font/consolas.ttf", 26, fg, bg, 150, -1, 20, 20);
 			Label* width = new Label(&window, "width", "font/consolas.ttf", 26, fg, bg, 150, -1, 20, 20 + 150);		
