@@ -125,9 +125,9 @@ void capture_event_custom(SDL_Event& e)
 	int x, y;
 	SDL_GetMouseState(&x, &y);
 	SDL_Color bg = {255, 255, 255, 255}, fg = {0, 0, 0, 255};
-	Label* height_cnt = new Label(&window, std::to_string(height_custom) , "font/consolas.ttf", 50, fg, bg, 100, -1, 280, 90);
-	Label* width_cnt = new Label(&window, std::to_string(width_custom) , "font/consolas.ttf", 50, fg, bg, 100, -1, 280, 240);
-	Label* booms_cnt = new Label(&window, std::to_string(booms_custom) , "font/consolas.ttf", 50, fg, bg, 100, -1, 280, 390);
+	Label* height_cnt = new Label(&window, std::to_string(height_custom) , "font/consolas.ttf", 52, fg, bg, 100, -1, 280, 90);
+	Label* width_cnt = new Label(&window, std::to_string(width_custom) , "font/consolas.ttf", 52, fg, bg, 100, -1, 280, 240);
+	Label* booms_cnt = new Label(&window, std::to_string(booms_custom) , "font/consolas.ttf", 52, fg, bg, 100, -1, 280, 390);
 	if(e.type == SDL_MOUSEBUTTONDOWN)
 	{
 		if(x >= 460 && y >= 80 && x <= 520 && y <= 140 && check_inside_right(460, 80, x, y))
@@ -316,9 +316,9 @@ void capture_event_menu(SDL_Event& e)
 			next.h = 80;
 			draw_one(next, Next);
 			SDL_Color bg = {255, 255, 255, 255}, fg = {0, 0, 0, 255};
-			Label* height = new Label(&window, "height", "font/consolas.ttf", 26, fg, bg, 150, -1, 20, 20);
-			Label* width = new Label(&window, "width", "font/consolas.ttf", 26, fg, bg, 150, -1, 20, 20 + 150);		
-			Label* booms = new Label(&window, "booms", "font/consolas.ttf", 26, fg, bg, 150, -1, 20, 20 + 300);
+			Label* height = new Label(&window, "height", "font/consolas.ttf", 28, fg, bg, 150, -1, 20, 20);
+			Label* width = new Label(&window, "width", "font/consolas.ttf", 28, fg, bg, 150, -1, 20, 20 + 150);		
+			Label* booms = new Label(&window, "booms", "font/consolas.ttf", 28, fg, bg, 150, -1, 20, 20 + 300);
 			height->show();
 			width->show();
 			booms->show();
