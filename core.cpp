@@ -18,7 +18,7 @@ MinesweeperGUI::MinesweeperGUI(MainWindow* win, int px, int py, std::string lvl)
 	parent = win;
 	packed_x = px;
 	packed_y = py;
-	packed_y += line2_start_y + info_height + FACE_WIDTH; // add space for info field
+	packed_y += line3_start_y + FACE_WIDTH; // add space for info field
 
 	if (lvl == "easy") {
 		level = "Easy";
@@ -43,7 +43,7 @@ MinesweeperGUI::MinesweeperGUI(MainWindow* win, int px, int py, int _w, int _h, 
 	level = "Custom";
 	packed_x = px;
 	packed_y = py;
-	packed_y += line2_start_y + info_height + FACE_WIDTH; // add space for info field
+	packed_y += line3_start_y + FACE_WIDTH; // add space for info field
 
 	width = _w;
 	height = _h;
@@ -74,6 +74,7 @@ MinesweeperGUI::~MinesweeperGUI() {
 	SDL_DestroyTexture(IMG_MINE);
 	SDL_DestroyTexture(IMG_WATCH);
 
+	SDL_RemoveTimer(timer_id);
 	// delete watch;
 	// delete remaining_flags;
 }
@@ -121,6 +122,12 @@ void MinesweeperGUI::setupCore() {
 			}
 }
 
+Uint32 timer_callback(Uint32 interval, void* param) {
+	Stopwatch* self = reinterpret_cast<Stopwatch*>(param);
+	self->printTime();
+	return interval;
+}
+
 void MinesweeperGUI::setupGUI() {
 	// resize window
 	int gameGUI_height = CELL_WIDTH * height;
@@ -160,7 +167,7 @@ void MinesweeperGUI::setupGUI() {
 	SDL_Color text_fg = { 0, 0, 0 };
 	
 	home_btn = ButtonImage(parent, IMG_HOME, info_height, info_height,
-	                       packed_x+6, packed_y - line2_start_y - info_height - FACE_WIDTH + 6);
+	                       packed_x+6, packed_y - line3_start_y - FACE_WIDTH + PADDING);
 	home_btn.drawButton();
 
 	// Label level_label(parent, level, "font/consolas.ttf", info_height, text_fg, game_bg,
@@ -171,7 +178,7 @@ void MinesweeperGUI::setupGUI() {
 	SDL_RenderCopy(parent->renderer, IMG_MINE, NULL, &RECT_MINE);
 
 	remaining_flags = new Label(parent, std::to_string(count_remaining_flags), "font/consolas.ttf", info_height,
-	                            text_fg, game_bg, 50, -1, 6+info_height+6, line2_start_y);
+	                            text_fg, game_bg, 50, -1, PADDING+info_height+PADDING, line2_start_y);
 	remaining_flags->show();
 	//----------------------
 	SDL_Rect RECT_WATCH = {90, line2_start_y, info_height, info_height};
@@ -179,9 +186,11 @@ void MinesweeperGUI::setupGUI() {
 
 	watch = new Stopwatch(parent, "font/consolas.ttf", info_height, text_fg, game_bg, 120, line2_start_y);
 	watch->printTime();
+
+	timer_id = SDL_AddTimer(1000, timer_callback, this->watch);
 	//----------------------
 	face_btn = ButtonImage(parent, IMG_FACE[0], FACE_WIDTH, FACE_WIDTH,
-	                       (gameGUI_width - FACE_WIDTH) / 2, packed_y - FACE_WIDTH);
+	                       (gameGUI_width - FACE_WIDTH) / 2, line3_start_y);
 	face_btn.drawButton();
 
 	for (int r = 0; r < height; r++)
@@ -196,7 +205,7 @@ void MinesweeperGUI::setupGUI() {
 	/*
 	prevent bug: SDL_MOUSEBUTTONDOWN from home/custom screen will open cell(s).
 	*/
-	last_event_type = -1;
+	is_in_game = false;
 }
 /*
 void MinesweeperGUI::view() {
@@ -442,21 +451,22 @@ void MinesweeperGUI::captureEvent(SDL_Event& event) {
 			} else {
 				if (is_mouse_inside_gamefield) {
 					if (event.type == SDL_MOUSEBUTTONDOWN) {
+						is_in_game = true;
+
 						watch->printTime();
 						if (mouse_event.button != SDL_BUTTON_RIGHT)
 							face_btn.setBackground(IMG_FACE[2]);
 					}
 					else if (event.type == SDL_MOUSEBUTTONUP) {
+						if (!is_in_game) {
+							// not a click!
+							return;
+						}
+
 						if (!watch->isStarted() && !watch->isStopped()) {
 							watch->start();
 						}
 						watch->printTime();
-
-						if (last_event_type != SDL_MOUSEBUTTONDOWN) {
-							// not a click!
-							last_event_type = event.type;
-							return;
-						}
 
 						face_btn.setBackground(IMG_FACE[0]);
 
@@ -496,6 +506,5 @@ void MinesweeperGUI::captureEvent(SDL_Event& event) {
 				}
 			}
 		}
-		last_event_type = event.type;
 	}
 }

@@ -5,7 +5,7 @@
 #include "gui.h"
 #include "stopwatch.h"
 
-Stopwatch::Stopwatch() {};
+Stopwatch::Stopwatch() {}
 
 Stopwatch::Stopwatch(MainWindow* win, std::string font_dir, int font_size,
 	                 SDL_Color fg, SDL_Color bg, int px, int py) {
@@ -15,7 +15,7 @@ Stopwatch::Stopwatch(MainWindow* win, std::string font_dir, int font_size,
 	text_bg = bg;
 	packed_x = px;
 	packed_y = py;
-};
+}
 
 Stopwatch::~Stopwatch() {
 	TTF_CloseFont(font);
@@ -60,7 +60,7 @@ bool Stopwatch::isStopped() {
 }
 
 void Stopwatch::printTime() {
-	if (!is_stopped) {
+	if (!is_stopped && !is_paused) {
 		int seconds = (is_started ? (SDL_GetTicks() - start_time) / 1000 : 0);
 		if (seconds != old_seconds) { // avoid printing a value multiple times
 			old_seconds = seconds;

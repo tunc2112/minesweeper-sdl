@@ -81,13 +81,13 @@ protected:
 class Button: public _Button {
 public:
 	Button();
-	Button(MainWindow* win, const RGBA& c, int w, int h, int x=0, int y=0);
+	Button(MainWindow* win, SDL_Color c, int w, int h, int x=0, int y=0);
 	~Button();
 	void drawButton();
-	void setChangingStateBackground(int state, const RGBA& c);
+	void setChangingStateBackground(int state, SDL_Color c);
 	void setBackgroundByMouseState(int state);
 private:
-	RGBA color[TOTAL_MOUSE_STATES];
+	SDL_Color color[TOTAL_MOUSE_STATES];
 };
 
 class ButtonImage: public _Button {

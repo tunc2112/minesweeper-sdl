@@ -1,6 +1,8 @@
 #ifndef _CORE_H
 #define _CORE_H
 
+#include <SDL2/SDL.h>
+#include <SDL2/SDL_image.h>
 #include <string>
 #include <queue>
 #include "gui.h"
@@ -9,6 +11,8 @@
 
 class MinesweeperGUI {
 public:
+	Stopwatch* watch;
+
 	MinesweeperGUI();
 	MinesweeperGUI(MainWindow* win, int px, int py, std::string lvl="easy");
 	MinesweeperGUI(MainWindow* win, int px, int py, int _w, int _h, int _bombs);
@@ -33,6 +37,7 @@ private:
 	int width;
 	int height;
 	int bombs;
+	SDL_TimerID timer_id;
 
 	const SDL_Color game_bg = {192, 192, 192, 255}; // {0, 63, 127, 255};
 
@@ -42,8 +47,10 @@ private:
 	int cells_uncovered_value[51][51];
 	ButtonImage cells_image[51][51];
 	
+	static const int PADDING = 6;
 	static const int info_height = 24;
-	static const int line2_start_y = info_height + 16;
+	static const int line2_start_y = info_height + 12;
+	static const int line3_start_y = line2_start_y + PADDING + info_height;
 	static const int CELL_WIDTH = 24;
 	static const int FACE_WIDTH = 52;
 	static const int BOMB = -1;
@@ -57,6 +64,7 @@ private:
 	bool is_game_over;
 	bool is_game_won;
 	bool is_game_quit;
+	bool is_in_game;
 
 	std::queue<int> cells_queue;
 
@@ -81,9 +89,6 @@ private:
 	SDL_Texture* IMG_WATCH;
 
 	Label* remaining_flags;
-	Stopwatch* watch;
-
-	unsigned int last_event_type;
 
 	void setupCore();
 	void setupGUI();

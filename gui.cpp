@@ -63,10 +63,6 @@ void MainWindow::mainloop() {
 				quit = true;
 				break;
 			}
-			/* else if (event.type == SDL_WINDOWEVENT) {
-			} else if (event.type == SDL_MOUSEBUTTONDOWN) {
-			}
-			*/
 			if (captureEvent != NULL)
 				captureEvent(event);
 		}
@@ -171,7 +167,7 @@ void _Button::handleEvent(SDL_Event &event) {
 
 Button::Button() {}
 
-Button::Button(MainWindow* win, const RGBA& c, int w, int h, int x, int y) {
+Button::Button(MainWindow* win, SDL_Color c, int w, int h, int x, int y) {
 	parent = win;
 	width = w;
 	height = h;
@@ -195,7 +191,7 @@ void Button::drawButton() {
 	SDL_RenderPresent(parent->renderer);
 }
 
-void Button::setChangingStateBackground(int state, const RGBA& c) {
+void Button::setChangingStateBackground(int state, SDL_Color c) {
 	assert(state == MOUSE_OUT || state == MOUSE_OVER || state == MOUSE_DOWN || state == MOUSE_UP);
 	color[state] = c;
 }
