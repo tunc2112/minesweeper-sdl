@@ -10,7 +10,7 @@ Button btn_list[62][71];
 ButtonImage bi1;
 int check_easy_inside, check_medium_inside, check_hard_inside, check_custom_inside, check_next_inside, height_custom = 8, width_custom = 8, booms_custom = 10;
 bool flagged = false, clicked = false;
-MainWindow window("Minesweeper Test", 620, 710);
+MainWindow window("Minesweeper Test", 480, 640);
 SDL_Texture *covered_img, *flagged_img, *clicked_img;
 SDL_Rect background;
 SDL_Rect menu;
@@ -57,24 +57,24 @@ void draw_everything(MainWindow &window)
 	background.y = 0;
 	background.w = w;
 	background.h = h;
-	menu.x = 260;
+	menu.x = 190;
 	menu.y = 35;
-	menu.w = 100;
-	menu.h = 100;
-	easy.x = 200;
-	easy.y = 140;
-	easy.w = 210;
-	easy.h = 100;
-	medium.x = 160;
-	medium.y = 290;
+	menu.w = 90;
+	menu.h = 90;
+	easy.x = 160;
+	easy.y = 150;
+	easy.w = 160;
+	easy.h = 80;
+	medium.x = 95;
+	medium.y = 270;
 	medium.w = 290;
 	medium.h = 100;
-	hard.x = 200;
-	hard.y = 440;
+	hard.x = 135;
+	hard.y = 390;
 	hard.w = 210;
 	hard.h = 100;
-	custom.x = 170;
-	custom.y = 590;
+	custom.x = 105;
+	custom.y = 510;
 	custom.w = 270;
 	custom.h = 100;
 	SDL_RenderClear(window.renderer);
@@ -125,41 +125,42 @@ void capture_event_custom(SDL_Event& e)
 	int x, y;
 	SDL_GetMouseState(&x, &y);
 	SDL_Color bg = {255, 255, 255, 255}, fg = {0, 0, 0, 255};
-	Label* height_cnt = new Label(&window, std::to_string(height_custom) , "font/consolas.ttf", 52, fg, bg, 100, -1, 280, 90);
-	Label* width_cnt = new Label(&window, std::to_string(width_custom) , "font/consolas.ttf", 52, fg, bg, 100, -1, 280, 240);
-	Label* booms_cnt = new Label(&window, std::to_string(booms_custom) , "font/consolas.ttf", 52, fg, bg, 100, -1, 280, 390);
+	Label* height_cnt = new Label(&window, std::to_string(height_custom) , "font/consolas.ttf", 52, fg, bg, 100, -1, 220, 90);
+	Label* width_cnt = new Label(&window, std::to_string(width_custom) , "font/consolas.ttf", 52, fg, bg, 100, -1, 220, 240);
+	Label* booms_cnt = new Label(&window, std::to_string(booms_custom) , "font/consolas.ttf", 52, fg, bg, 100, -1, 220, 390);
 	if(e.type == SDL_MOUSEBUTTONDOWN)
 	{
-		if(x >= 460 && y >= 80 && x <= 520 && y <= 140 && check_inside_right(460, 80, x, y))
+		if(x >= 400 && y >= 80 && x <= 520 && y <= 140 && check_inside_right(400, 80, x, y))
 		{
 			++height_custom;
 		}
-		if(x >= 100 && y >= 80 && x <= 160 && y <= 140 && check_inside_left(100, 80, x, y))
+		if(x >= 40 && y >= 80 && x <= 160 && y <= 140 && check_inside_left(40, 80, x, y))
 		{
 			--height_custom;
 		}
-		if(x >= 460 && y >= 230 && x <= 520 && y <= 290 && check_inside_right(460, 230, x, y))
+		if(x >= 400 && y >= 230 && x <= 520 && y <= 290 && check_inside_right(400, 230, x, y))
 		{
 			++width_custom;
 		}
-		if(x >= 100 && y >= 230 && x <= 160 && y <= 290 && check_inside_left(100, 230, x, y))
+		if(x >= 40 && y >= 230 && x <= 160 && y <= 290 && check_inside_left(40, 230, x, y))
 		{
 			--width_custom;
 		}
-		if(x >= 460 && y >= 380 && x <= 520 && y <= 440 && check_inside_right(460, 380, x, y))
+		if(x >= 400 && y >= 380 && x <= 520 && y <= 440 && check_inside_right(400, 380, x, y))
 		{
 			++booms_custom;
 		}
-		if(x >= 100 && y >= 380 && x <= 160 && y <= 440 && check_inside_left(100, 380, x, y))
+		if(x >= 40 && y >= 380 && x <= 160 && y <= 440 && check_inside_left(40, 380, x, y))
 		{
 			--booms_custom;
 		}
-		if(x >= 400 && y >= 550 && x <= 350 + 190 && y <= 550 + 80)
+		if(x >= 280 && y >= 520 && x <= 350 + 190 && y <= 520 + 80)
 		{
-			//vao game
+			//next -> vao game
 		}
+			
 	}
-	if(x >= 400 && y >= 550 && x <= 350 + 190 && y <= 550 + 80)
+	if(x >= 280 && y >= 520 && x <= 350 + 190 && y <= 520 + 80)
 	{
 		if(check_next_inside == 0)
 		{
@@ -190,7 +191,7 @@ void capture_event_menu(SDL_Event& e)
 {
 	int x, y;
 	SDL_GetMouseState(&x, &y);
-	if(x >= 200 && y >= 140 && x <= 200 + 210 && y <= 140 + 100)
+	if(x >= 160 && y >= 150 && x <= 160 + 160 && y <= 150 + 80)
 	{
 		if(check_easy_inside == 0)
 		{
@@ -208,7 +209,7 @@ void capture_event_menu(SDL_Event& e)
 			draw_everything(window);
 		}
 	}
-	if(x >= 160 && y >= 290 && x <= 160 + 290 && y <= 290 + 100)
+	if(x >= 95 && y >= 290 && x <= 95 + 290 && y <= 290 + 100)
 	{
 		if(check_medium_inside == 0)
 		{
@@ -226,7 +227,7 @@ void capture_event_menu(SDL_Event& e)
 			draw_everything(window);
 		}
 	}
-	if(x >= 200 && y >= 440 && x <= 200 + 210 && y <= 440 + 100)
+	if(x >= 135 && y >= 390 && x <= 135 + 210 && y <= 390 + 100)
 	{
 		if(check_hard_inside == 0)
 		{
@@ -244,7 +245,7 @@ void capture_event_menu(SDL_Event& e)
 			draw_everything(window);
 		}
 	}
-	if(x >= 170 && y >= 590 && x <= 170 + 270 && y <= 590 + 100)
+	if(x >= 105 && y >= 510 && x <= 105 + 270 && y <= 510 + 100)
 	{
 		if(check_custom_inside == 0)
 		{
@@ -265,53 +266,53 @@ void capture_event_menu(SDL_Event& e)
 	// cho nay de nhan xem co click ko xong neu click vao cai nao thi choi game theo cai do
 	if(e.type == SDL_MOUSEBUTTONDOWN)
 	{
-		if(x >= 200 && y >= 140 && x <= 200 + 210 && y <= 140 + 100)
+		if(x >= 160 && y >= 150 && x <= 160 + 160 && y <= 150 + 80)
 		{
 			// fix size
 			setup_playscreen(window);
 		}
-		if(x >= 160 && y >= 290 && x <= 160 + 290 && y <= 290 + 100)
+		if(x >= 95 && y >= 290 && x <= 95 + 290 && y <= 290 + 100)
 			printf("Medium\n");
-		if(x >= 200 && y >= 440 && x <= 200 + 210 && y <= 440 + 100)
+		if(x >= 135 && y >= 390 && x <= 135 + 210 && y <= 390 + 100)
 			printf("Hard\n");
-		if(x >= 170 && y >= 590 && x <= 170 + 270 && y <= 590 + 100)
+		if(x >= 105 && y >= 510 && x <= 105 + 270 && y <= 510 + 100)
 		{
 			SDL_Texture* Background = IMG_LoadTexture(window.renderer, "img_test/white.png");
 			SDL_RenderClear(window.renderer);
 			SDL_RenderCopy(window.renderer, Background, NULL, &background);
 			SDL_RenderPresent(window.renderer);
-			tri1.x = 100;
+			tri1.x = 40;
 			tri1.y = 80;
 			tri1.w = 60;
 			tri1.h = 60;
 			draw_one(tri1, Tri1);
-			tri2.x = 460;
+			tri2.x = 400;
 			tri2.y = 80;
 			tri2.w = 60;
 			tri2.h = 60;
 			draw_one(tri2, Tri2);
-			tri1.x = 100;
+			tri1.x = 40;
 			tri1.y = 230;
 			tri1.w = 60;
 			tri1.h = 60;
 			draw_one(tri1, Tri1);
-			tri2.x = 460;
+			tri2.x = 400;
 			tri2.y = 230;
 			tri2.w = 60;
 			tri2.h = 60;
 			draw_one(tri2, Tri2);
-			tri1.x = 100;
+			tri1.x = 40;
 			tri1.y = 380;
 			tri1.w = 60;
 			tri1.h = 60;
 			draw_one(tri1, Tri1);
-			tri2.x = 460;
+			tri2.x = 400;
 			tri2.y = 380;
 			tri2.w = 60;
 			tri2.h = 60;
 			draw_one(tri2, Tri2);
-			next.x = 400;
-			next.y = 550;
+			next.x = 280;
+			next.y = 520;
 			next.w = 190;
 			next.h = 80;
 			draw_one(next, Next);
