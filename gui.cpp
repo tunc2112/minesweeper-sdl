@@ -20,13 +20,17 @@ RGBA::RGBA(const RGBA& c) {
 	a = c.a;
 }
 
+MainWindow::MainWindow() {};
+
 MainWindow::MainWindow(std::string window_title, int width, int height) {
 	root = SDL_CreateWindow(window_title.c_str(), SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED,
-		width, height, SDL_WINDOW_SHOWN);
+		width, height, SDL_WINDOW_HIDDEN);
 
-	renderer = SDL_CreateRenderer(root, -1, SDL_RENDERER_ACCELERATED);
+	renderer = SDL_CreateRenderer(root, -1, SDL_RENDERER_ACCELERATED|SDL_RENDERER_TARGETTEXTURE);
 
 	SDL_SetRenderDrawBlendMode(renderer, SDL_BLENDMODE_BLEND);
+
+	SDL_ShowWindow(root); // prevent not showing elements on renderer
 }
 
 MainWindow::~MainWindow() {
@@ -58,15 +62,16 @@ void MainWindow::mainloop() {
 			if (event.type == SDL_QUIT) {
 				quit = true;
 				break;
-			} else if (event.type == SDL_WINDOWEVENT) {
+			}
+			/* else if (event.type == SDL_WINDOWEVENT) {
 			} else if (event.type == SDL_MOUSEBUTTONDOWN) {
 			}
+			*/
 			if (captureEvent != NULL)
 				captureEvent(event);
-			SDL_Delay(10);
 		}
+		// SDL_Delay(10);
 	}
-	close();
 }
 
 _Button::_Button() {}
@@ -115,6 +120,7 @@ void _Button::runCommand(SDL_MouseButtonEvent* b, std::string clicked_mouse) {
 
 void _Button::handleEvent(SDL_Event &event) {
 	if (event.type == SDL_MOUSEMOTION || event.type == SDL_MOUSEBUTTONDOWN || event.type == SDL_MOUSEBUTTONUP) {
+	// if (event == SDL_MouseMotionEvent || event == SDL_MouseButtonEvent) {
 		int x, y;
 		SDL_GetMouseState(&x, &y);
 		bool is_mouse_inside = (packed_x <= x && x <= packed_x + width && packed_y <= y && y <= packed_y + height);

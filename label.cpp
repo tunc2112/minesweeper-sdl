@@ -1,5 +1,6 @@
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_ttf.h>
+#include <iostream>
 #include <string>
 #include "gui.h"
 #include "label.h"
@@ -28,18 +29,38 @@ void Label::setText(std::string new_text) {
 	text = new_text;
 }
 
-void Label::show() {
+void Label::show(std::string alignment) {
 	SDL_Surface* surface = TTF_RenderText_Blended(font, text.c_str(), text_fg);
 	text_texture = SDL_CreateTextureFromSurface(parent->renderer, surface);
 	SDL_FreeSurface(surface);
 
 	// get real size of text
-	int texW = 0;
-	int texH = 0;
-	SDL_QueryTexture(text_texture, NULL, NULL, &texW, &texH);
-	SDL_Rect dstrect = { packed_x, packed_y, texW, texH };
-	SDL_Rect bg_rect = { packed_x, packed_y, (width != -1 ? width : texW), (height != -1 ? height : texH) };
+	int textW = 0;
+	int textH = 0;
+	SDL_QueryTexture(text_texture, NULL, NULL, &textW, &textH);
+	SDL_Rect bg_rect = { packed_x, packed_y, (width != -1 ? width : textW), (height != -1 ? height : textH) };
 	// fixed with/height or not
+
+	/*
+	(px, py)
+	   +-------------------+ ^
+	   |                   | |
+	   |     text here     | height
+       |                   | |
+       +-------------------+ v
+       <------ width ------>
+	*/
+	SDL_Rect text_rect;
+	if (alignment == "center") {
+		text_rect.x = packed_x + (bg_rect.w - textW) / 2;
+	} else if (alignment == "left") {
+		text_rect.x = packed_x;
+	} else if (alignment == "right") {
+		text_rect.x = packed_x + bg_rect.w - textW;
+	}
+	text_rect.y = packed_y + (bg_rect.h - textH) / 2;
+	text_rect.w = textW;
+	text_rect.h = textH;
 
 	/*
 	// image background
@@ -54,7 +75,7 @@ void Label::show() {
 	SDL_RenderFillRect(parent->renderer, &bg_rect);
 
 	// print text to renderer
-	SDL_RenderCopy(parent->renderer, text_texture, NULL, &dstrect);
+	SDL_RenderCopy(parent->renderer, text_texture, NULL, &text_rect);
 	SDL_RenderPresent(parent->renderer);
 }
 /*

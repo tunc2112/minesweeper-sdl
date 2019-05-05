@@ -248,4 +248,82 @@ Inherited from class `_Button`.
 
 #### Added Public Member Functions
 
-### `MinesweeperCore`
+---
+
+### `MinesweeperGUI`
+
+#### Constructor & Destructor
+
+> ```cpp
+> MinesweeperGUI();
+> ```
+
+> ```cpp
+> MinesweeperGUI(MainWindow* win, int px, int py, std::string level="beginner");
+> ```
+
+> ```cpp
+> MinesweeperGUI(MainWindow* win, int px, int py, int _w, int _h, int _bombs);
+> ```
+
+> ```cpp
+> ~MinesweeperGUI();
+> ```
+
+#### Added Public Member Functions
+
+> ```cpp
+> void setup();
+> ```
+
+**Description**
+
+**Parameters**
+
+> ```cpp
+> void toggleFlag(int r, int c);
+> ```
+
+**Description**
+
+**Parameters**
+
+> ```cpp
+> void openCell(int r, int c);
+> ```
+
+**Description**
+
+**Parameters**
+
+> ```cpp
+> void openABomb(int r, int c);
+> ```
+
+**Description**
+
+**Parameters**
+
+> ```cpp
+> void view(bool open_all=false);
+> ```
+
+**Description**
+
+**Parameters**
+
+> ```cpp
+> void openCellsFrom(int r, int c);
+> ```
+
+**Description**
+
+**Parameters**
+
+> ```cpp
+> void captureEvent(SDL_Event& event);
+> ```
+
+**Description**
+
+**Parameters**

@@ -13,7 +13,7 @@ public:
 		  SDL_Color fg, SDL_Color bg, int w, int h, int px, int py);
 	~Label();
 	void setText(std::string new_text);
-	void show();
+	void show(std::string alignment="left");
 
 private:
 	MainWindow* parent;

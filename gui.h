@@ -27,7 +27,8 @@ public:
 	// activity captureEvent;
 	void (*captureEvent)(SDL_Event& e) = NULL;
 
-	MainWindow(std::string window_title="", int width=400, int height=300);
+	MainWindow();
+	MainWindow(std::string window_title, int width, int height);
 	~MainWindow();
 	void setWindowSize(int width, int height);
 	void center();
@@ -48,32 +49,6 @@ enum MOUSE_STATE {
 	MOUSE_DOWN,
 	MOUSE_UP,
 	TOTAL_MOUSE_STATES
-};
-
-class Image {
-public:
-	Image(MainWindow &win, std::string img_dir) {
-		texture = IMG_LoadTexture(win.renderer, img_dir.c_str());
-		assert(texture != NULL);
-	}
-
-	Image(SDL_Texture* img_texture) {
-		texture = img_texture;
-		assert(texture != NULL);
-	}
-
-	~Image() {
-		SDL_DestroyTexture(texture);
-	}
-
-	void view(MainWindow &win, SDL_Rect* dest_rect) {
-		assert(win.renderer != renderer);
-		SDL_RenderCopy(renderer, texture, NULL, dest_rect);
-		SDL_RenderPresent(win.renderer);
-	}
-private:
-	SDL_Renderer* renderer = NULL;
-	SDL_Texture* texture = NULL;
 };
 
 class _Button {
