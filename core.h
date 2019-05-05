@@ -46,13 +46,7 @@ private:
 	int cells_status[51][51];
 	int cells_uncovered_value[51][51];
 	ButtonImage cells_image[51][51];
-	
-	static const int PADDING = 6;
-	static const int info_height = 24;
-	static const int line2_start_y = info_height + 12;
-	static const int line3_start_y = line2_start_y + PADDING + info_height;
-	static const int CELL_WIDTH = 24;
-	static const int FACE_WIDTH = 52;
+
 	static const int BOMB = -1;
 	enum cell_status {
 		COVERED,
@@ -67,6 +61,13 @@ private:
 	bool is_in_game;
 
 	std::queue<int> cells_queue;
+
+	static const int PADDING = 6;
+	static const int INFO_HEIGHT = 24;
+	static const int LINE2_START_Y = INFO_HEIGHT + PADDING*2;
+	static const int LINE3_START_Y = LINE2_START_Y + PADDING + INFO_HEIGHT;
+	static const int CELL_WIDTH = 24;
+	static const int FACE_WIDTH = 52;
 
 	SDL_Texture* IMG_COVERED;
 	SDL_Texture* IMG_COVERED_FLAGGED;
