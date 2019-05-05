@@ -1,1 +1,4 @@
-g++ main.cpp -lmingw32 -lSDL2main -lSDL2 -lSDL2 -lSDL2_image -o main.exe && ./main.exe
+CPP="main"
+LINKED_CPP="gui.h gui.cpp label.h label.cpp stopwatch.h stopwatch.cpp core.h core.cpp"
+FLAGS="-Wall -lmingw32 -lSDL2main -lSDL2 -lSDL2_image -lSDL2_ttf"
+g++ $CPP.cpp $LINKED_CPP $FLAGS -o $CPP.exe && ./$CPP.exe
