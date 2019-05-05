@@ -2,6 +2,7 @@
 #include <SDL2/SDL_image.h>
 #include <iostream>
 #include <string>
+#include <windows.h>
 #include "gui.h"
 #include "core.h"
 #include "label.h"
@@ -132,27 +133,87 @@ void capture_event_custom(SDL_Event& e)
 	{
 		if(x >= 400 && y >= 80 && x <= 520 && y <= 140 && check_inside_right(400, 80, x, y))
 		{
+			Tri2 = IMG_LoadTexture(window.renderer, "img_test/triangle4.png");
+			tri2.x = 400;
+			tri2.y = 80;
+			tri2.w = 60;
+			tri2.h = 60;
+			draw_one(tri2, Tri2);
+			Sleep(30);
+			Tri2 = IMG_LoadTexture(window.renderer, "img_test/triangle2.png");
+			draw_one(tri2, Tri2);
+			if(height_custom < 24)
 			++height_custom;
 		}
 		if(x >= 40 && y >= 80 && x <= 160 && y <= 140 && check_inside_left(40, 80, x, y))
 		{
-			--height_custom;
+			Tri1 = IMG_LoadTexture(window.renderer, "img_test/triangle3.png");
+			tri1.x = 40;
+			tri1.y = 80;
+			tri1.w = 60;
+			tri1.h = 60;
+			draw_one(tri1, Tri1);
+			Sleep(30);
+			Tri1 = IMG_LoadTexture(window.renderer, "img_test/triangle1.png");
+			draw_one(tri1, Tri1);
+			if(height_custom > 1)
+				--height_custom;
 		}
 		if(x >= 400 && y >= 230 && x <= 520 && y <= 290 && check_inside_right(400, 230, x, y))
 		{
+			Tri2 = IMG_LoadTexture(window.renderer, "img_test/triangle4.png");
+			tri2.x = 400;
+			tri2.y = 230;
+			tri2.w = 60;
+			tri2.h = 60;
+			draw_one(tri2, Tri2);
+			Sleep(30);
+			Tri2 = IMG_LoadTexture(window.renderer, "img_test/triangle2.png");
+			draw_one(tri2, Tri2);
+			if(width_custom < 30)
 			++width_custom;
 		}
 		if(x >= 40 && y >= 230 && x <= 160 && y <= 290 && check_inside_left(40, 230, x, y))
 		{
-			--width_custom;
+			Tri1 = IMG_LoadTexture(window.renderer, "img_test/triangle3.png");
+			tri1.x = 40;
+			tri1.y = 230;
+			tri1.w = 60;
+			tri1.h = 60;
+			draw_one(tri1, Tri1);
+			Sleep(30);
+			Tri1 = IMG_LoadTexture(window.renderer, "img_test/triangle1.png");
+			draw_one(tri1, Tri1);
+			if(width_custom > 1)
+				--width_custom;
 		}
 		if(x >= 400 && y >= 380 && x <= 520 && y <= 440 && check_inside_right(400, 380, x, y))
 		{
-			++booms_custom;
+			Tri2 = IMG_LoadTexture(window.renderer, "img_test/triangle4.png");
+			tri2.x = 400;
+			tri2.y = 380;
+			tri2.w = 60;
+			tri2.h = 60;
+			draw_one(tri2, Tri2);
+			Sleep(30);
+			Tri2 = IMG_LoadTexture(window.renderer, "img_test/triangle2.png");
+			draw_one(tri2, Tri2);
+			if(booms_custom < width_custom * height_custom - 1)
+				++booms_custom;
 		}
 		if(x >= 40 && y >= 380 && x <= 160 && y <= 440 && check_inside_left(40, 380, x, y))
 		{
-			--booms_custom;
+			Tri1 = IMG_LoadTexture(window.renderer, "img_test/triangle3.png");
+			tri1.x = 40;
+			tri1.y = 380;
+			tri1.w = 60;
+			tri1.h = 60;
+			draw_one(tri1, Tri1);
+			Sleep(30);
+			Tri1 = IMG_LoadTexture(window.renderer, "img_test/triangle1.png");
+			draw_one(tri1, Tri1);
+			if(booms_custom > 1)
+				--booms_custom;
 		}
 		if(x >= 280 && y >= 520 && x <= 350 + 190 && y <= 520 + 80)
 		{
