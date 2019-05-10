@@ -7,16 +7,19 @@
 #include <iostream>
 #include "gui.h"
 
-class Stopwatch {
+class Stopwatch
+{
 public:
 	Stopwatch();
 	Stopwatch(MainWindow* win, std::string font_dir, int font_size, SDL_Color fg, SDL_Color bg, int px, int py);
 	~Stopwatch();
 	void printTime();
+	std::string getTime();
 	void start();
 	void stop();
 	void pause();
 	void unpause();
+	void reset();
 	bool isStarted();
 	bool isStopped();
 
@@ -35,5 +38,7 @@ private:
 	bool is_paused = false;
 	bool is_stopped = false;
 };
+
+Uint32 timer_callback(Uint32 interval, void* param);
 
 #endif

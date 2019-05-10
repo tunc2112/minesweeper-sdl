@@ -6,21 +6,11 @@
 #include <cassert>
 #include <string>
 
-class RGBA {
-public:
-	int r;
-	int g;
-	int b;
-	int a;
-
-	RGBA(int _r=0, int _g=0, int _b=0, int _a=255);
-	RGBA(const RGBA& c);
-};
-
 typedef void (*command)(SDL_MouseButtonEvent* e);
 typedef void (*activity)(SDL_Event& e);
 
-class MainWindow {
+class MainWindow
+{
 public:
 	SDL_Window* root = NULL;
 	SDL_Renderer* renderer = NULL;
@@ -33,7 +23,6 @@ public:
 	void setWindowSize(int width, int height);
 	void center();
 	/*
-	const int NONE = -1;
 	void setWindowTitle(std::string new_title);
 	void config(std::string new_window_title="", int new_width=NONE, int new_height=NONE);
 	*/
@@ -41,7 +30,8 @@ public:
 	void close();
 };
 
-enum MOUSE_STATE {
+enum MOUSE_STATE
+{
 	DEFAULT,
 	CLICKED,
 	MOUSE_OUT,
@@ -51,57 +41,47 @@ enum MOUSE_STATE {
 	TOTAL_MOUSE_STATES
 };
 
-class _Button {
+class Image {
 public:
-	_Button();
-	~_Button() {};
-	virtual void drawButton() {};
+	Image();
+	Image(MainWindow* win, SDL_Texture* img, int w, int h, int px, int py);
+	~Image();
+	void view();
+	void setBackground(SDL_Texture* img, bool lazy_loading=false);
+private:
+	MainWindow* parent;
+	SDL_Rect img_rect;
+	SDL_Texture* bg_image;
+};
+
+class ButtonImage
+{
+public:
+	ButtonImage();
+	ButtonImage(MainWindow* win, std::string img_dir, int w, int h, int px=0, int py=0);
+	ButtonImage(MainWindow* win, SDL_Texture* img, int w, int h, int px=0, int py=0);
+	~ButtonImage();
+	void drawButton();
 	int getMouseState();
-	void disable();
-	void enable();
 	bool isXYInside(int x, int y);
-	virtual void setBackgroundByMouseState(int state) {};
+	void setBackground(SDL_Texture* img);
 	void bindCommand(command f, std::string clicked_mouse="left");
 	void runCommand(SDL_MouseButtonEvent* b, std::string clicked_mouse="left");
 	void handleEvent(SDL_Event& e);
-protected:
+
+private:
 	MainWindow* parent;
 	int packed_x;
 	int packed_y;
 	int width;
 	int height;
-	bool is_active = true;
 	SDL_Rect btn_rect;
 	int mouse_state;
-	command left_click_command = NULL;
-	command middle_click_command = NULL;
-	command right_click_command = NULL;
-};
+	command left_click_command;
+	command middle_click_command;
+	command right_click_command;
 
-class Button: public _Button {
-public:
-	Button();
-	Button(MainWindow* win, SDL_Color c, int w, int h, int x=0, int y=0);
-	~Button();
-	void drawButton();
-	void setChangingStateBackground(int state, SDL_Color c);
-	void setBackgroundByMouseState(int state);
-private:
-	SDL_Color color[TOTAL_MOUSE_STATES];
-};
-
-class ButtonImage: public _Button {
-public:
-	ButtonImage();
-	ButtonImage(MainWindow* win, std::string img_dir, int w, int h, int x=0, int y=0);
-	ButtonImage(MainWindow* win, SDL_Texture* img, int w, int h, int x=0, int y=0);
-	~ButtonImage();
-	void drawButton();
-	// void setChangingStateBackground(int state, SDL_Texture* img);
-	// void setBackgroundByMouseState(int state);
-	void setBackground(SDL_Texture* img);
-private:
-	SDL_Texture* bg_image[TOTAL_MOUSE_STATES];
+	SDL_Texture* bg_image;
 };
 
 #endif

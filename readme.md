@@ -150,6 +150,18 @@ MIT License (c) 2019
 
 - https://forums.libsdl.org/viewtopic.php?p=48249
 
+- https://forums.libsdl.org/viewtopic.php?p=44964
+
+- https://stackoverflow.com/a/28415293/9724138
+
+- https://gist.github.com/matthewjberger/6c2a4c04a26a3788efffb8c86ee10d3e
+
+- https://wiki.libsdl.org/SDL_ShowMessageBox
+
+- http://www-personal.umich.edu/~bazald/l/api/_s_d_l__messagebox_8h_source.html
+
+- https://github.com/mlfarrell/VGL-Vulkan-Core/blob/master/example/Example.cpp
+
 ---
 
 - `SDL_Quit()`: [old docs](https://www.libsdl.org/release/SDL-1.2.15/docs/html/sdlquit.html), [free() sample code](https://ideone.com/S4B9Jq), 

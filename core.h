@@ -5,20 +5,22 @@
 #include <SDL2/SDL_image.h>
 #include <string>
 #include <queue>
+#include <fstream>
 #include "gui.h"
 #include "stopwatch.h"
 #include "label.h"
 
-class MinesweeperGUI {
+class MinesweeperGUI
+{
 public:
-	Stopwatch* watch;
-
 	MinesweeperGUI();
 	MinesweeperGUI(MainWindow* win, int px, int py, std::string lvl="easy");
 	MinesweeperGUI(MainWindow* win, int px, int py, int _w, int _h, int _bombs);
 	~MinesweeperGUI();
 	void setup();
-	// void view();
+	void newGame();
+	void updateHighScore();
+	void showHighScore();
 	void toggleFlag(int r, int c);
 	void openCell(int r, int c);
 	void openABomb(int r, int c);
@@ -37,18 +39,20 @@ private:
 	int width;
 	int height;
 	int bombs;
-	SDL_TimerID timer_id;
+	Stopwatch* watch;
+	SDL_TimerID timer_id = 0;
 
 	const SDL_Color game_bg = {192, 192, 192, 255}; // {0, 63, 127, 255};
 
 	ButtonImage home_btn, face_btn;
 
-	int cells_status[51][51];
-	int cells_uncovered_value[51][51];
-	ButtonImage cells_image[51][51];
+	int cells_status[32][32];
+	int cells_uncovered_value[32][32];
+	Image cells_image[32][32];
 
 	static const int BOMB = -1;
-	enum cell_status {
+	enum cell_status 
+	{
 		COVERED,
 		OPENED,
 		FLAGGED
@@ -89,7 +93,12 @@ private:
 	SDL_Texture* IMG_MINE;
 	SDL_Texture* IMG_WATCH;
 
+	const SDL_Rect RECT_MINE = {PADDING, LINE2_START_Y, INFO_HEIGHT, INFO_HEIGHT};
+	const SDL_Rect RECT_WATCH = {90, LINE2_START_Y, INFO_HEIGHT, INFO_HEIGHT};
+
 	Label* remaining_flags;
+
+	std::string highscore_easy, highscore_medium, highscore_hard;
 
 	void setupCore();
 	void setupGUI();

@@ -5,24 +5,31 @@
 #include "gui.h"
 #include "stopwatch.h"
 
-Stopwatch::Stopwatch() {}
+Stopwatch::Stopwatch()
+{}
 
 Stopwatch::Stopwatch(MainWindow* win, std::string font_dir, int font_size,
-	                 SDL_Color fg, SDL_Color bg, int px, int py) {
+                     SDL_Color fg, SDL_Color bg, int px, int py)
+{
 	parent = win;
 	font = TTF_OpenFont(font_dir.c_str(), font_size);
 	text_fg = fg;
 	text_bg = bg;
 	packed_x = px;
 	packed_y = py;
+
+	is_started = false;
+	is_stopped = false;
 }
 
-Stopwatch::~Stopwatch() {
+Stopwatch::~Stopwatch()
+{
 	TTF_CloseFont(font);
 	SDL_DestroyTexture(text_texture);
 }
 
-void Stopwatch::start() {
+void Stopwatch::start()
+{
 	is_started = true;
 	is_stopped = false;
 	old_seconds = -1;
@@ -30,39 +37,55 @@ void Stopwatch::start() {
 	this->printTime();
 }
 
-void Stopwatch::stop() {
+void Stopwatch::stop()
+{
 	is_started = false;
 	is_stopped = true;
 }
 
-void Stopwatch::pause() {
-	if (is_started && !is_paused) {
+void Stopwatch::pause()
+{
+	if (is_started && !is_paused)
+	{
 		is_paused = true;
 		paused_time = SDL_GetTicks() - start_time;
 		start_time = 0;
 	}
 }
 
-void Stopwatch::unpause() {
-	if (is_started && is_paused) {
+void Stopwatch::unpause()
+{
+	if (is_started && is_paused)
+	{
 		is_paused = false;
 		start_time = SDL_GetTicks() - (paused_time - paused_time % 1000);
 		paused_time = 0;
 	}
 }
 
-bool Stopwatch::isStarted() {
+void Stopwatch::reset() {
+	is_started = false;
+	is_stopped = false;
+	this->printTime();
+}
+
+bool Stopwatch::isStarted()
+{
 	return is_started;
 }
 
-bool Stopwatch::isStopped() {
+bool Stopwatch::isStopped()
+{
 	return is_stopped;
 }
 
-void Stopwatch::printTime() {
-	if (!is_stopped && !is_paused) {
+void Stopwatch::printTime()
+{
+	if (!is_stopped && !is_paused)
+	{
 		int seconds = (is_started ? (SDL_GetTicks() - start_time) / 1000 : 0);
-		if (seconds != old_seconds) { // avoid printing a value multiple times
+		if (seconds != old_seconds)
+		{ // avoid printing a value multiple times
 			old_seconds = seconds;
 			int minutes = seconds / 60;
 			seconds %= 60;
@@ -81,9 +104,12 @@ void Stopwatch::printTime() {
 
 			/*
 			// image background
-			if (text_bg == NULL) {
+			if (text_bg == NULL)
+			{
 				SDL_RenderClear(parent->renderer);
-			} else {
+			}
+			else
+			{
 				// SDL_RenderCopy(parent->renderer, text_bg, NULL, &bg_rect);
 			}
 			*/
@@ -96,4 +122,19 @@ void Stopwatch::printTime() {
 			SDL_RenderPresent(parent->renderer);
 		}
 	}
+}
+
+std::string Stopwatch::getTime() {
+	int seconds = old_seconds;
+	int minutes = seconds / 60;
+	seconds %= 60;
+	return (minutes < 10 ? "0" : "") + std::to_string(minutes) + ":" +
+	       (seconds < 10 ? "0" : "") + std::to_string(seconds);
+}
+
+Uint32 timer_callback(Uint32 interval, void* param)
+{
+	Stopwatch* self = reinterpret_cast<Stopwatch*>(param);
+	self->printTime();
+	return interval;
 }

@@ -14,6 +14,7 @@ const int MIN_CUSTOM_WIDTH = 8;
 const int MIN_CUSTOM_HEIGHT = 8;
 
 const int TRIANGLE_PADDING = 40;
+const int TRIANGLE_HEIGHT = 60;
 
 std::string local_screen = "home";
 
@@ -69,17 +70,20 @@ MinesweeperGUI* game = NULL;
 void capture_event_menu(SDL_Event& e);
 void capture_event_custom(SDL_Event& e);
 
-bool isXYInsideRect(SDL_Rect rect, int x, int y) {
+bool isXYInsideRect(SDL_Rect rect, int x, int y)
+{
 	return (rect.x <= x && x <= rect.x + rect.w && rect.y <= y && y <= rect.y + rect.h);
 }
 
-bool isXYInside_rightTriangle(int row_id, int x, int y) {
+bool isXYInside_rightTriangle(int row_id, int x, int y)
+{
 	int px = tri[row_id][1].x;
 	int py = tri[row_id][1].y;
 
-	if (px <= x && x <= px + tri[row_id][1].w && py <= y && y <= py + tri[row_id][1].h) {
-		if (y > py + 30)
-			y = py + 60 - y + py;
+	if (px <= x && x <= px + tri[row_id][1].w && py <= y && y <= py + tri[row_id][1].h)
+	{
+		if (y > py + TRIANGLE_HEIGHT / 2)
+			y = py + TRIANGLE_HEIGHT - y + py;
 		int Y = y - py;
 		int X = 2 * Y + px;
 		return (x <= X);
@@ -87,86 +91,95 @@ bool isXYInside_rightTriangle(int row_id, int x, int y) {
 	return false;
 }
 
-bool isXYInside_leftTriangle(int row_id, int x, int y) {
+bool isXYInside_leftTriangle(int row_id, int x, int y)
+{
 	int px = tri[row_id][0].x;
 	int py = tri[row_id][0].y;
 
-	if (px <= x && x <= px + tri[row_id][0].w && py <= y && y <= py + tri[row_id][0].h) {
-		if (y > py + 30)
-			y = py + 60 - y + py;
+	if (px <= x && x <= px + tri[row_id][0].w && py <= y && y <= py + tri[row_id][0].h)
+	{
+		if (y > py + TRIANGLE_HEIGHT / 2)
+			y = py + TRIANGLE_HEIGHT - y + py;
 		int Y = y - py;
-		int X = px + 60 - 2 * Y;
+		int X = px + TRIANGLE_HEIGHT - 2 * Y;
 		return (x >= X);
 	}
 	return false;
 }
 
-void init() {
+void init()
+{
 	background.x = 0;
 	background.y = 0;
 	background.w = WIN_WIDTH;
 	background.h = WIN_HEIGHT;
-	menu.x = 195;
-	menu.y = 35;
 	menu.w = 90;
 	menu.h = 90;
-	easy.x = 160;
-	easy.y = 150;
+	menu.x = (WIN_WIDTH - menu.w) / 2;
+	menu.y = 35;
 	easy.w = 160;
 	easy.h = 80;
-	medium.x = 85;
-	medium.y = 270;
+	easy.x = (WIN_WIDTH - easy.w) / 2;
+	easy.y = 150;
 	medium.w = 310;
 	medium.h = 90;
-	hard.x = 150;
-	hard.y = 395;
+	medium.x = (WIN_WIDTH - medium.w) / 2;
+	medium.y = 270;
 	hard.w = 180;
 	hard.h = 70;
-	custom.x = 105;
-	custom.y = 500;
+	hard.x = (WIN_WIDTH - hard.w) / 2;
+	hard.y = 395;
 	custom.w = 270;
 	custom.h = 100;
+	custom.x = (WIN_WIDTH - custom.w) / 2;
+	custom.y = 500;
+
+	/*
+	int w, h;
+	SDL_QueryTexture(IMG_EASY1, NULL, NULL, &w, &h);
+	std::cout << w << " " << h << "\n";
+	*/
 
 	// 1: L, 2: R
 	tri[0][0].x = TRIANGLE_PADDING;
 	tri[0][0].y = 80;
-	tri[0][0].w = 60;
-	tri[0][0].h = 60;
+	tri[0][0].w = TRIANGLE_HEIGHT;
+	tri[0][0].h = TRIANGLE_HEIGHT;
 
 	tri[0][1].x = WIN_WIDTH - TRIANGLE_PADDING - 60;
 	tri[0][1].y = 80;
-	tri[0][1].w = 60;
-	tri[0][1].h = 60;
+	tri[0][1].w = TRIANGLE_HEIGHT;
+	tri[0][1].h = TRIANGLE_HEIGHT;
 
 	tri[1][0].x = TRIANGLE_PADDING;
 	tri[1][0].y = 230;
-	tri[1][0].w = 60;
-	tri[1][0].h = 60;
+	tri[1][0].w = TRIANGLE_HEIGHT;
+	tri[1][0].h = TRIANGLE_HEIGHT;
 
 	tri[1][1].x = WIN_WIDTH - TRIANGLE_PADDING - 60;
 	tri[1][1].y = 230;
-	tri[1][1].w = 60;
-	tri[1][1].h = 60;
+	tri[1][1].w = TRIANGLE_HEIGHT;
+	tri[1][1].h = TRIANGLE_HEIGHT;
 
 	tri[2][0].x = TRIANGLE_PADDING;
 	tri[2][0].y = 380;
-	tri[2][0].w = 60;
-	tri[2][0].h = 60;
+	tri[2][0].w = TRIANGLE_HEIGHT;
+	tri[2][0].h = TRIANGLE_HEIGHT;
 
 	tri[2][1].x = WIN_WIDTH - TRIANGLE_PADDING - 60;
 	tri[2][1].y = 380;
-	tri[2][1].w = 60;
-	tri[2][1].h = 60;
+	tri[2][1].w = TRIANGLE_HEIGHT;
+	tri[2][1].h = TRIANGLE_HEIGHT;
 
-	next.x = 280;
+	next.x = 305;
 	next.y = 520;
-	next.w = 190;
-	next.h = 80;
+	next.w = 190 / 2;
+	next.h = 80 / 2;
 
 	back.x = 80;
 	back.y = 520;
-	back.w = 80;
-	back.h = 80;
+	back.w = 40;
+	back.h = 40;
 
 	// Lazy loading
 	IMG_HOME_BACKGROUND = IMG_LoadTexture(window.renderer, "img/background.png");
@@ -203,7 +216,8 @@ void init() {
 	Back = IMG_BACK;
 }
 
-void draw_everything() {
+void draw_everything()
+{
 	SDL_SetRenderDrawColor(window.renderer, 0, 63, 127, 255);
 	SDL_RenderClear(window.renderer);
 	SDL_RenderCopy(window.renderer, IMG_HOME_BACKGROUND, NULL, &background);
@@ -218,17 +232,19 @@ void draw_everything() {
 void draw_one(SDL_Rect rect, SDL_Texture* texture)
 {
 	SDL_RenderCopy(window.renderer, texture, NULL, &rect);
-	// SDL_RenderPresent(window.renderer);
+	SDL_RenderPresent(window.renderer);
 }
 
-void setup_homescreen() {
+void setup_homescreen()
+{
 	local_screen = "home";
 	window.setWindowSize(WIN_WIDTH, WIN_HEIGHT);
 	window.center();
 	draw_everything();
 }
 
-void setup_custom_screen() {
+void setup_custom_screen()
+{
 	local_screen = "custom";
 
 	height_custom = 8;
@@ -270,13 +286,15 @@ void setup_custom_screen() {
 	// bombs_cnt->show("center");
 }
 
-void setup_playscreen(std::string level) {
+void setup_playscreen(std::string level)
+{
 	local_screen = "game";
 	game = new MinesweeperGUI(&window, 0, 0, level);
 	game->setup();
 }
 
-void setup_playscreen(int w, int h, int b) {
+void setup_playscreen(int w, int h, int b)
+{
 	local_screen = "game";
 	game = new MinesweeperGUI(&window, 0, 0, w, h, b);
 	game->setup();
@@ -361,19 +379,23 @@ void capture_event_menu(SDL_Event& e)
 	// enter menu
 	if (e.type == SDL_MOUSEBUTTONDOWN)
 	{
-		if (isXYInsideRect(easy, x, y)) {
+		if (isXYInsideRect(easy, x, y))
+		{
 			// printf("Easy\n");
 			setup_playscreen("easy");
 		}
-		if (isXYInsideRect(medium, x, y)) {
+		if (isXYInsideRect(medium, x, y))
+		{
 			// printf("Medium\n");
 			setup_playscreen("medium");
 		}
-		if (isXYInsideRect(hard, x, y)) {
+		if (isXYInsideRect(hard, x, y))
+		{
 			// printf("Hard\n");
 			setup_playscreen("hard");
 		}
-		if (isXYInsideRect(custom, x, y)) {
+		if (isXYInsideRect(custom, x, y))
+		{
 			setup_custom_screen();
 		}
 	}
@@ -452,11 +474,13 @@ void capture_event_custom(SDL_Event& e)
 			if (bombs_custom < width_custom * height_custom - 1)
 				++bombs_custom;
 		}
-		if (isXYInsideRect(next, x, y)) {
+		if (isXYInsideRect(next, x, y))
+		{
 			// printf("%d %d %d\n", width_custom, height_custom, bombs_custom);
 			setup_playscreen(width_custom, height_custom, bombs_custom);
 		}
-		if (isXYInsideRect(back, x, y)) {
+		if (isXYInsideRect(back, x, y))
+		{
 			setup_homescreen();
 			return;
 		}
@@ -485,43 +509,33 @@ void capture_event_custom(SDL_Event& e)
 	}
 }
 
-void capture_event(SDL_Event& e) {
-	if (local_screen == "home") {
+void capture_event(SDL_Event& e)
+{
+	if (local_screen == "home")
+	{
 		capture_event_menu(e);
 	} else if (local_screen == "custom") {
 		capture_event_custom(e);
 	} else if (local_screen == "game") {
-		if (game != NULL) {
-			game->watch->printTime();
-
+		if (game != NULL)
+		{
 			game->captureEvent(e);
-			if (game->isGameQuit()) {
+			if (game->isGameQuit())
+			{
 				// std::cout << "Quit now...\n";
 				setup_homescreen();
 				// delete game;
 			}
 		}
-	} else {
+	}
+	 else
+	{
 		setup_homescreen();
 	}
 }
 
-void mainloop() {
-	bool quit = false;
-	while (!quit) {
-		SDL_Event event;
-		while (SDL_PollEvent(&event)) {
-			if (event.type == SDL_QUIT) {
-				quit = true;
-				break;
-			}
-			capture_event(event);
-		}
-		// SDL_Delay(10);
-	}
-}
-
-int main(int argc, char* argv[]) {
+int main(int argc, char* argv[])
+{
 	SDL_Init(SDL_INIT_VIDEO|SDL_INIT_TIMER);
 	TTF_Init();
 
@@ -531,8 +545,7 @@ int main(int argc, char* argv[]) {
 
 	setup_homescreen();
 	//setup_playscreen();
-	// window.mainloop();
-	mainloop();
+	window.mainloop();
 	delete game;
 	return 0;
 }
