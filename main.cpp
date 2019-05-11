@@ -56,8 +56,8 @@ SDL_Texture* Easy;
 SDL_Texture* Medium;
 SDL_Texture* Hard;
 SDL_Texture* Custom;
-SDL_Texture* Tri1;
-SDL_Texture* Tri2;
+SDL_Texture* TriL;
+SDL_Texture* TriR;
 SDL_Texture* Next;
 SDL_Texture* Back;
 
@@ -210,13 +210,13 @@ void init()
 	Medium = IMG_MEDIUM1;
 	Hard = IMG_HARD1;
 	Custom = IMG_CUSTOM1;
-	Tri1 = IMG_TRI1;
-	Tri2 = IMG_TRI2;
+	TriL = IMG_TRI1;
+	TriR = IMG_TRI2;
 	Next = IMG_NEXT1;
 	Back = IMG_BACK;
 }
 
-void draw_everything()
+void draw_menu()
 {
 	SDL_SetRenderDrawColor(window.renderer, 0, 63, 127, 255);
 	SDL_RenderClear(window.renderer);
@@ -229,7 +229,7 @@ void draw_everything()
 	SDL_RenderPresent(window.renderer);
 }
 
-void draw_one(SDL_Rect rect, SDL_Texture* texture)
+void draw_texture(SDL_Rect rect, SDL_Texture* texture)
 {
 	SDL_RenderCopy(window.renderer, texture, NULL, &rect);
 	SDL_RenderPresent(window.renderer);
@@ -240,30 +240,30 @@ void setup_homescreen()
 	local_screen = "home";
 	window.setWindowSize(WIN_WIDTH, WIN_HEIGHT);
 	window.center();
-	draw_everything();
+	draw_menu();
 }
 
 void setup_custom_screen()
 {
 	local_screen = "custom";
 
-	height_custom = 8;
-	width_custom = 8;
+	height_custom = MIN_CUSTOM_WIDTH;
+	width_custom = MIN_CUSTOM_HEIGHT;
 	bombs_custom = 10;
 
 	SDL_RenderClear(window.renderer);
 	SDL_RenderCopy(window.renderer, IMG_WHITE, NULL, &background);
 	SDL_RenderPresent(window.renderer);
 
-	draw_one(tri[0][0], Tri1);
-	draw_one(tri[0][1], Tri2);
-	draw_one(tri[1][0], Tri1);
-	draw_one(tri[1][1], Tri2);
-	draw_one(tri[2][0], Tri1);
-	draw_one(tri[2][1], Tri2);
+	draw_texture(tri[0][0], TriL);
+	draw_texture(tri[0][1], TriR);
+	draw_texture(tri[1][0], TriL);
+	draw_texture(tri[1][1], TriR);
+	draw_texture(tri[2][0], TriL);
+	draw_texture(tri[2][1], TriR);
 
-	draw_one(next, Next);
-	draw_one(back, Back);
+	draw_texture(next, Next);
+	draw_texture(back, Back);
 
 	SDL_RenderPresent(window.renderer);
 
@@ -310,7 +310,7 @@ void capture_event_menu(SDL_Event& e)
 		{
 			check_easy_inside = 1;
 			Easy = IMG_EASY2;
-			draw_everything();
+			draw_menu();
 		}
 	}
 	else
@@ -319,7 +319,7 @@ void capture_event_menu(SDL_Event& e)
 		{
 			check_easy_inside = 0;
 			Easy = IMG_EASY1;
-			draw_everything();
+			draw_menu();
 		}
 	}
 	if (isXYInsideRect(medium, x, y))
@@ -328,7 +328,7 @@ void capture_event_menu(SDL_Event& e)
 		{
 			check_medium_inside = 1;
 			Medium = IMG_MEDIUM2;
-			draw_everything();
+			draw_menu();
 		}
 	}
 	else
@@ -337,7 +337,7 @@ void capture_event_menu(SDL_Event& e)
 		{
 			check_medium_inside = 0;
 			Medium = IMG_MEDIUM1;
-			draw_everything();
+			draw_menu();
 		}
 	}
 	if (isXYInsideRect(hard, x, y))
@@ -346,7 +346,7 @@ void capture_event_menu(SDL_Event& e)
 		{
 			check_hard_inside = 1;
 			Hard = IMG_HARD2;
-			draw_everything();
+			draw_menu();
 		}
 	}
 	else
@@ -355,7 +355,7 @@ void capture_event_menu(SDL_Event& e)
 		{
 			check_hard_inside = 0;
 			Hard = IMG_HARD1;
-			draw_everything();
+			draw_menu();
 		}
 	}
 	if (isXYInsideRect(custom, x, y))
@@ -364,7 +364,7 @@ void capture_event_menu(SDL_Event& e)
 		{
 			check_custom_inside = 1;
 			Custom = IMG_CUSTOM2;
-			draw_everything();
+			draw_menu();
 		}
 	}
 	else
@@ -373,7 +373,7 @@ void capture_event_menu(SDL_Event& e)
 		{
 			check_custom_inside = 0;
 			Custom = IMG_CUSTOM1;
-			draw_everything();
+			draw_menu();
 		}
 	}
 	// enter menu
@@ -381,17 +381,14 @@ void capture_event_menu(SDL_Event& e)
 	{
 		if (isXYInsideRect(easy, x, y))
 		{
-			// printf("Easy\n");
 			setup_playscreen("easy");
 		}
 		if (isXYInsideRect(medium, x, y))
 		{
-			// printf("Medium\n");
 			setup_playscreen("medium");
 		}
 		if (isXYInsideRect(hard, x, y))
 		{
-			// printf("Hard\n");
 			setup_playscreen("hard");
 		}
 		if (isXYInsideRect(custom, x, y))
@@ -416,67 +413,66 @@ void capture_event_custom(SDL_Event& e)
 	{
 		if (isXYInside_leftTriangle(0, x, y))
 		{
-			Tri1 = IMG_TRI3;
-			draw_one(tri[0][0], Tri1);
+			TriL = IMG_TRI3;
+			draw_texture(tri[0][0], TriL);
 			SDL_Delay(100);
-			Tri1 = IMG_TRI1;
-			draw_one(tri[0][0], Tri1);
+			TriL = IMG_TRI1;
+			draw_texture(tri[0][0], TriL);
 			if (height_custom > MIN_CUSTOM_HEIGHT)
 				--height_custom;
 		}
 		if (isXYInside_rightTriangle(0, x, y))
 		{
-			Tri2 = IMG_TRI4;
-			draw_one(tri[0][1], Tri2);
+			TriR = IMG_TRI4;
+			draw_texture(tri[0][1], TriR);
 			SDL_Delay(100);
-			Tri2 = IMG_TRI2;
-			draw_one(tri[0][1], Tri2);
+			TriR = IMG_TRI2;
+			draw_texture(tri[0][1], TriR);
 			if (height_custom < MAX_CUSTOM_HEIGHT)
 				++height_custom;
 		}
 		if (isXYInside_leftTriangle(1, x, y))
 		{
-			Tri1 = IMG_TRI3;
-			draw_one(tri[1][0], Tri1);
+			TriL = IMG_TRI3;
+			draw_texture(tri[1][0], TriL);
 			SDL_Delay(100);
-			Tri1 = IMG_TRI1;
-			draw_one(tri[1][0], Tri1);
+			TriL = IMG_TRI1;
+			draw_texture(tri[1][0], TriL);
 			if (width_custom > MIN_CUSTOM_WIDTH)
 				--width_custom;
 		}
 		if (isXYInside_rightTriangle(1, x, y))
 		{
-			Tri2 = IMG_TRI4;
-			draw_one(tri[1][1], Tri2);
+			TriR = IMG_TRI4;
+			draw_texture(tri[1][1], TriR);
 			SDL_Delay(100);
-			Tri2 = IMG_TRI2;
-			draw_one(tri[1][1], Tri2);
+			TriR = IMG_TRI2;
+			draw_texture(tri[1][1], TriR);
 			if (width_custom < MAX_CUSTOM_WIDTH)
 				++width_custom;
 		}
 		if (isXYInside_leftTriangle(2, x, y))
 		{
-			Tri1 = IMG_TRI3;
-			draw_one(tri[2][0], Tri1);
+			TriL = IMG_TRI3;
+			draw_texture(tri[2][0], TriL);
 			SDL_Delay(100);
-			Tri1 = IMG_TRI1;
-			draw_one(tri[2][0], Tri1);
+			TriL = IMG_TRI1;
+			draw_texture(tri[2][0], TriL);
 			if (bombs_custom > 1)
 				--bombs_custom;
 		}
 		if (isXYInside_rightTriangle(2, x, y))
 		{
-			Tri2 = IMG_TRI4;
-			draw_one(tri[2][1], Tri2);
+			TriR = IMG_TRI4;
+			draw_texture(tri[2][1], TriR);
 			SDL_Delay(100);
-			Tri2 = IMG_TRI2;
-			draw_one(tri[2][1], Tri2);
+			TriR = IMG_TRI2;
+			draw_texture(tri[2][1], TriR);
 			if (bombs_custom < width_custom * height_custom - 1)
 				++bombs_custom;
 		}
 		if (isXYInsideRect(next, x, y))
 		{
-			// printf("%d %d %d\n", width_custom, height_custom, bombs_custom);
 			setup_playscreen(width_custom, height_custom, bombs_custom);
 		}
 		if (isXYInsideRect(back, x, y))
@@ -491,9 +487,9 @@ void capture_event_custom(SDL_Event& e)
 		{
 			check_next_inside = 1;
 			Next = IMG_WHITE;
-			draw_one(next, Next);
+			draw_texture(next, Next);
 			Next = IMG_NEXT2;
-			draw_one(next, Next);
+			draw_texture(next, Next);
 		}
 	}
 	else
@@ -502,9 +498,9 @@ void capture_event_custom(SDL_Event& e)
 		{
 			check_next_inside = 0;
 			Next = IMG_WHITE;
-			draw_one(next, Next);
+			draw_texture(next, Next);
 			Next = IMG_NEXT1;
-			draw_one(next, Next);
+			draw_texture(next, Next);
 		}
 	}
 }
@@ -522,13 +518,12 @@ void capture_event(SDL_Event& e)
 			game->captureEvent(e);
 			if (game->isGameQuit())
 			{
-				// std::cout << "Quit now...\n";
 				setup_homescreen();
 				// delete game;
 			}
 		}
 	}
-	 else
+	else
 	{
 		setup_homescreen();
 	}
@@ -539,12 +534,12 @@ int main(int argc, char* argv[])
 	SDL_Init(SDL_INIT_VIDEO|SDL_INIT_TIMER);
 	TTF_Init();
 
-	window = MainWindow("Minesweeper Test", WIN_WIDTH, WIN_HEIGHT);
+	window = MainWindow("Minesweeper", WIN_WIDTH, WIN_HEIGHT);
 	init();
 	window.captureEvent = &capture_event;
 
 	setup_homescreen();
-	//setup_playscreen();
+	// setup_playscreen();
 	window.mainloop();
 	delete game;
 	return 0;

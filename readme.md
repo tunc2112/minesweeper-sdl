@@ -162,6 +162,8 @@ MIT License (c) 2019
 
 - https://github.com/mlfarrell/VGL-Vulkan-Core/blob/master/example/Example.cpp
 
+- https://gamedev.stackexchange.com/questions/28817/windows-events-lag-behind
+
 ---
 
 - `SDL_Quit()`: [old docs](https://www.libsdl.org/release/SDL-1.2.15/docs/html/sdlquit.html), [free() sample code](https://ideone.com/S4B9Jq), 

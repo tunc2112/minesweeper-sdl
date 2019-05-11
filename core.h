@@ -48,7 +48,7 @@ private:
 
 	int cells_status[32][32];
 	int cells_uncovered_value[32][32];
-	Image cells_image[32][32];
+	ButtonImage cells_image[32][32];
 
 	static const int BOMB = -1;
 	enum cell_status 

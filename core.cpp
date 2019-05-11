@@ -210,9 +210,10 @@ void MinesweeperGUI::setupGUI()
 	for (int r = 0; r < height; r++)
 		for (int c = 0; c < width; c++)
 		{
-			cells_image[r][c] = Image(parent, IMG_COVERED, CELL_WIDTH, CELL_WIDTH,
+			cells_image[r][c] = ButtonImage(parent, IMG_COVERED, CELL_WIDTH, CELL_WIDTH,
 			                                packed_x+c*CELL_WIDTH, packed_y+r*CELL_WIDTH);
-			cells_image[r][c].view();
+			// for lazy loading
+			cells_image[r][c].drawButton(true);
 		}
 
 	SDL_RenderPresent(parent->renderer);
