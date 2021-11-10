@@ -1,0 +1,4 @@
+.idea/
+__ignore__/
+*.exe
+cmake-build-debug/

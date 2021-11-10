@@ -2,6 +2,8 @@
 
 Documentation: [md](documentation.md) | [pdf](documentation.pdf)
 
+Test report: [report](http://tunc2112.github.io/minesweeper-sdl-report)
+
 ## Rules
 
 - http://minesweeperonline.com/
@@ -44,27 +46,16 @@ pacman -Syu  # update all packages
 
 > **Note:** Run `install.sh` for quick install.
 
-- Restart MSYS shell, then install `make`, `tar`, `gdb`:
+- Restart MSYS shell, then install `make`, `tar`, `gdb`, `gcc` and `gcc-libs`:
 ```bash
-pacman -S make tar mingw-w64-x86_64-gdb
-```
-
-- Install `GCC` and `GCC libs` 7.2.0 *(lastest version 8.3.0 got [`libbacktrace could not find executable to open`](https://sourceforge.net/p/mingw-w64/bugs/559/))*:
-```bash
-pacman -U mingw-w64-x86_64-gcc-7.2.0-3-any.pkg.tar.xz mingw-w64-x86_64-gcc-libs-7.2.0-3-any.pkg.tar.xz
+pacman -S make tar mingw-w64-x86_64-gdb mingw-w64-x86_64-gcc mingw-w64-x86_64-gcc-libs
 ```
 
 > **Note:**
 > 
-> - Download `mingw-gcc*-7.2.0-3-any.pkg.tar.gz` from [here](http://repo.msys2.org/mingw/x86_64/).
 > - Replace `x86_64` to `i686` if you're using Windows 32-bit.
 
-- Install SDL2:
-```bash
-pacman -Ss x86_64-sdl2
-```
-
-- Install SDL2 libraries:
+- Install SDL2 & SDL2 libraries:
 ```bash
 pacman -S mingw-w64-x86_64-SDL2 mingw-w64-x86_64-SDL2_gfx mingw-w64-x86_64-SDL2_image mingw-w64-x86_64-SDL2_mixer mingw-w64-x86_64-SDL2_net mingw-w64-x86_64-SDL2_ttf
 ```
